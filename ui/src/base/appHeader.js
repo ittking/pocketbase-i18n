@@ -1,6 +1,3 @@
-// i18n shorthand
-const _ = window.app.i18n;
-
 export function appHeader() {
     return () => {
         if (!app.store._ready || !app.store.showHeader || !app.store.superuser?.id) {
@@ -53,7 +50,7 @@ export function appHeader() {
                                     return t.i({ className: link.icon, ariaHidden: true });
                                 }
                             },
-                            t.span({ className: "txt" }, () => _(link.label)),
+                            t.span({ className: "txt" }, () => i18n(link.label)),
                         );
                     });
                 },
@@ -86,7 +83,7 @@ export function appHeader() {
                         },
                     },
                     t.i({ className: "ri-group-line", ariaHidden: true }),
-                    t.span({ className: "txt" }, _("header.manageSuperusers")),
+                    t.span({ className: "txt" }, i18n("header.manageSuperusers")),
                 ),
                 t.hr(),
                 t.button(
@@ -96,7 +93,7 @@ export function appHeader() {
                         onclick: () => app.pb.authStore.clear(),
                     },
                     t.i({ className: "ri-logout-circle-line", ariaHidden: true }),
-                    t.span({ className: "txt" }, _("header.logout")),
+                    t.span({ className: "txt" }, i18n("header.logout")),
                 ),
             ),
         );
@@ -105,9 +102,9 @@ export function appHeader() {
 
 function colorSchemeButton() {
     const options = [
-        { value: "light", icon: "ri-sun-line", label: _("colorScheme.light") },
-        { value: "dark", icon: "ri-moon-line", label: _("colorScheme.dark") },
-        { value: "", icon: "ri-subtract-line", label: _("colorScheme.auto") },
+        { value: "light", icon: "ri-sun-line", label: i18n("colorScheme.light") },
+        { value: "dark", icon: "ri-moon-line", label: i18n("colorScheme.dark") },
+        { value: "", icon: "ri-subtract-line", label: i18n("colorScheme.auto") },
     ];
 
     return [
@@ -116,7 +113,7 @@ function colorSchemeButton() {
                 type: "button",
                 className: "header-link color-scheme-picker",
                 "html-popovertarget": "color-scheme-dropdown",
-                title: _("colorScheme.title"),
+                title: i18n("colorScheme.title"),
             },
             t.i({
                 className: () => app.store.activeColorScheme == "dark" ? "ri-moon-line" : "ri-sun-line",
@@ -160,7 +157,7 @@ function languageButton() {
                 type: "button",
                 className: "header-link language-picker",
                 "html-popovertarget": "language-dropdown",
-                title: _("language.title"),
+                title: i18n("language.title"),
             },
             t.i({ className: "ri-translate", ariaHidden: true }),
         ),

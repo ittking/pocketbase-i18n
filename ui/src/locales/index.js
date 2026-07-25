@@ -1,7 +1,8 @@
 // PocketBase UI Translations
 // ============================================================
 // Supported languages: en, zh (extensible)
-// Usage: const _ = window.app.i18n; _("header.logout")
+// Usage:
+//   i18n("header.logout")  // global function, no import needed
 // ============================================================
 
 const STORAGE_KEY = "pbLanguage";
@@ -19,6 +20,22 @@ const translations = {
         "colorScheme.auto": "Auto",
         "colorScheme.title": "Color scheme",
         "language.title": "Language",
+        "search.search": "Search",
+        "search.clear": "Clear",
+        "search.loading": "Loading...",
+        "search.termOrFilter": "Search term or filter...",
+        "sidebar.searchCollections": "Search collections...",
+        "sidebar.noCollectionsFound": "No collections found.",
+        "sidebar.clearSearch": "Clear search",
+        "sidebar.pinned": "Pinned",
+        "sidebar.others": "Others",
+        "sidebar.collections": "Collections",
+        "sidebar.system": "System",
+        "sidebar.newCollection": "New collection",
+        "tooltip.clear": "Clear",
+        "tooltip.collectionsOverview": "Collections overview",
+        "tooltip.pin": "Pin",
+        "tooltip.unpin": "Unpin",
     },
     zh: {
         "header.manageSuperusers": "管理超级用户",
@@ -31,6 +48,22 @@ const translations = {
         "colorScheme.auto": "自动",
         "colorScheme.title": "主题模式",
         "language.title": "语言",
+        "search.search": "搜索",
+        "search.clear": "清除",
+        "search.loading": "加载中...",
+        "search.termOrFilter": "搜索关键词或筛选条件...",
+        "sidebar.searchCollections": "搜索集合...",
+        "sidebar.noCollectionsFound": "未找到集合",
+        "sidebar.clearSearch": "清除搜索",
+        "sidebar.pinned": "已固定",
+        "sidebar.others": "其他",
+        "sidebar.collections": "集合",
+        "sidebar.system": "系统",
+        "sidebar.newCollection": "新建集合",
+        "tooltip.clear": "清除",
+        "tooltip.collectionsOverview": "集合概览",
+        "tooltip.pin": "固定",
+        "tooltip.unpin": "取消固定",
     },
     // Add more languages here...
 };
@@ -43,6 +76,9 @@ window.app.i18n = function(key) {
     const dict = translations[currentLang] || translations.en;
     return dict[key] !== undefined ? dict[key] : key;
 };
+
+// Expose as global i18n function for convenience
+window.i18n = window.app.i18n;
 
 // Language utilities - also attached to window.app
 window.app.i18nLangs = [

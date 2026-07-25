@@ -111,7 +111,7 @@ window.app.components.searchbar = function(propsArg = {}) {
                             className: "btn sm pill warning",
                             hidden: () => props.value == local.value,
                         },
-                        "Search",
+                        i18n("search.search"),
                     ),
                     t.button(
                         {
@@ -119,7 +119,7 @@ window.app.components.searchbar = function(propsArg = {}) {
                             className: "btn sm pill secondary transparent",
                             onclick: () => clear(),
                         },
-                        "Clear",
+                        i18n("search.clear"),
                     ),
                 );
             }
