@@ -1,3 +1,7 @@
+// Inline translations - completely static to prevent tree-shaking
+const _lang = localStorage.getItem("pbLanguage") || "en";
+const _isZh = _lang === "zh";
+
 export function appHeader() {
     return () => {
         if (!app.store._ready || !app.store.showHeader || !app.store.superuser?.id) {
@@ -56,6 +60,7 @@ export function appHeader() {
                 },
             ),
             t.div({ className: "flex-fill app-header-separator" }),
+            languageButton(),
             colorSchemeButton(),
             t.button(
                 {
@@ -82,7 +87,7 @@ export function appHeader() {
                         },
                     },
                     t.i({ className: "ri-group-line", ariaHidden: true }),
-                    t.span({ className: "txt" }, "Manage superusers"),
+                    t.span({ className: "txt" }, _isZh ? "管理超级用户" : "Manage superusers"),
                 ),
                 t.hr(),
                 t.button(
@@ -92,7 +97,7 @@ export function appHeader() {
                         onclick: () => app.pb.authStore.clear(),
                     },
                     t.i({ className: "ri-logout-circle-line", ariaHidden: true }),
-                    t.span({ className: "txt" }, "Logout"),
+                    t.span({ className: "txt" }, _isZh ? "退出登录" : "Logout"),
                 ),
             ),
         );
@@ -101,9 +106,9 @@ export function appHeader() {
 
 function colorSchemeButton() {
     const options = [
-        { value: "light", icon: "ri-sun-line", label: "Light" },
-        { value: "dark", icon: "ri-moon-line", label: "Dark" },
-        { value: "", icon: "ri-subtract-line", label: "Auto" },
+        { value: "light", icon: "ri-sun-line", label: _isZh ? "浅色" : "Light" },
+        { value: "dark", icon: "ri-moon-line", label: _isZh ? "深色" : "Dark" },
+        { value: "", icon: "ri-subtract-line", label: _isZh ? "自动" : "Auto" },
     ];
 
     return [
@@ -112,7 +117,7 @@ function colorSchemeButton() {
                 type: "button",
                 className: "header-link color-scheme-picker",
                 "html-popovertarget": "color-scheme-dropdown",
-                title: "Color scheme",
+                title: _isZh ? "主题模式" : "Color scheme",
             },
             t.i({
                 className: () => app.store.activeColorScheme == "dark" ? "ri-moon-line" : "ri-sun-line",
@@ -142,6 +147,49 @@ function colorSchemeButton() {
                         },
                         t.i({ className: opt.icon, ariaHidden: true }),
                         t.span({ className: "txt" }, opt.label),
+                    );
+                });
+            },
+        ),
+    ];
+}
+
+function languageButton() {
+    const langs = [
+        { code: "en", name: "English" },
+        { code: "zh", name: "中文" },
+    ];
+
+    return [
+        t.button(
+            {
+                type: "button",
+                className: "header-link language-picker",
+                "html-popovertarget": "language-dropdown",
+                title: _isZh ? "语言" : "Language",
+            },
+            t.i({ className: "ri-translate", ariaHidden: true }),
+        ),
+        t.div(
+            {
+                pbEvent: "languageDropdown",
+                id: "language-dropdown",
+                className: "dropdown sm nowrap language-dropdown",
+                popover: "auto",
+            },
+            () => {
+                return langs.map((lang) => {
+                    return t.button(
+                        {
+                            type: "button",
+                            className: () => `dropdown-item dropdown-item-lang ${_lang === lang.code ? "active" : ""}`,
+                            onclick: (e) => {
+                                e.target.closest(".dropdown").hidePopover();
+                                localStorage.setItem("pbLanguage", lang.code);
+                                window.location.reload();
+                            },
+                        },
+                        t.span({ className: "txt" }, lang.name),
                     );
                 });
             },
