@@ -213,7 +213,7 @@ function apiPreviewModal(collection, settings) {
                                 `btn sm circle transparent secondary m-l-auto preview-close-btn ${
                                     data.isLoading ? "loading" : ""
                                 }`,
-                            title: "Close",
+                            title: () => i18n("records.close"),
                             onclick: () => app.modals.close(modal),
                         },
                         t.i({ className: "ri-close-line", ariaHidden: true }),

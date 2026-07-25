@@ -577,7 +577,7 @@ function recordUpsertModal(collection, rawRecord, modalSettings) {
                         disabled: () => data.isSaving,
                         onclick: () => app.modals.close(modal),
                     },
-                    t.span({ className: "txt" }, "Close"),
+                    t.span({ className: "txt" }, () => i18n("records.close")),
                 ),
                 t.button(
                     {
@@ -602,13 +602,16 @@ function recordUpsertModal(collection, rawRecord, modalSettings) {
                             disabled: () => data.isLocked || data.isFormDisabled,
                             onclick: () => save(),
                         },
-                        t.span({ className: "txt" }, () => (data.isNew ? "Create" : "Save changes")),
+                        t.span(
+                            { className: "txt" },
+                            () => (data.isNew ? i18n("records.create") : i18n("records.saveChanges")),
+                        ),
                     ),
                     t.button(
                         {
                             type: "button",
                             className: () => `btn p-5`,
-                            title: "Save options",
+                            title: () => i18n("records.saveOptions"),
                             disabled: () => data.isLocked || data.isFormDisabled,
                             "html-popovertarget": uniqueId + "save_options",
                         },
@@ -625,7 +628,7 @@ function recordUpsertModal(collection, rawRecord, modalSettings) {
                                     save(false);
                                 },
                             },
-                            t.span({ className: "txt" }, "Save and continue"),
+                            t.span({ className: "txt" }, () => i18n("records.saveAndContinue")),
                             t.small({ className: "txt-hint" }, "(Ctrl+S)"),
                         ),
                         t.hr(),
@@ -699,7 +702,10 @@ function recordUpsertModal(collection, rawRecord, modalSettings) {
                     { className: "col-12 flex" },
                     t.h6(
                         { className: "modal-title" },
-                        t.span(null, () => (data.isNew ? "Create " : "Edit ")),
+                        t.span(
+                            null,
+                            () => (data.isNew ? i18n("records.createLabel") + " " : i18n("records.editLabel") + " "),
+                        ),
                         t.strong(
                             { className: "txt-ellipsis collection-name", style: "max-width: 220px" },
                             () => collection.name,
@@ -767,7 +773,7 @@ function recordUpsertModal(collection, rawRecord, modalSettings) {
                                             app.utils.copyToClipboard(
                                                 JSON.stringify(data.originalRecord, redactedReplacer, 2),
                                             );
-                                            app.toasts.success("Record copied to clipboard!");
+                                            app.toasts.success(i18n("records.copiedToClipboard"));
                                         },
                                     },
                                     t.i({ className: "ri-braces-line", ariaHidden: true }),
@@ -827,7 +833,9 @@ function recordUpsertModal(collection, rawRecord, modalSettings) {
                                             data.activeTab == TAB_MAIN ? "active" : data.hasChanges ? "txt-warning" : ""
                                         }`,
                                     ariaDescription: app.attrs.tooltip(() =>
-                                        data.hasChanges && data.activeTab != TAB_MAIN ? "Has unsaved changes" : ""
+                                        data.hasChanges && data.activeTab != TAB_MAIN
+                                            ? i18n("records.unsavedChanges")
+                                            : ""
                                     ),
                                     onclick: () => data.activeTab = TAB_MAIN,
                                 },
@@ -1079,12 +1087,12 @@ function deleteDropdownItem(collection, data, modalSettings) {
                         app.modals.close(e.target.closest(".modal"), true);
                     },
                     null,
-                    { yesButton: "Delete record" },
+                    { yesButton: () => i18n("records.deleteRecord") },
                 );
             },
         },
         t.i({ className: "ri-delete-bin-7-line", ariaHidden: true }),
-        t.span({ className: "txt" }, "Delete"),
+        t.span({ className: "txt" }, () => i18n("records.delete")),
     );
 }
 
@@ -1463,7 +1471,7 @@ function authProvidersTab(collection, data) {
                     className: "btn transparent m-r-auto",
                     onclick: () => app.modals.close(),
                 },
-                t.span({ className: "txt" }, "Close"),
+                t.span({ className: "txt" }, () => i18n("records.close")),
             ),
         ),
     ];

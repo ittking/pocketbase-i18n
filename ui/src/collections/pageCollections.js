@@ -200,7 +200,7 @@ export function pageCollections(route) {
                 { className: "page-header flex-nowrap" },
                 t.nav(
                     { className: "breadcrumbs" },
-                    t.div(null, "Collections"),
+                    t.div(null, () => i18n("records.collections")),
                     () => {
                         if (app.store.activeCollection?.name) {
                             return t.div({
@@ -220,7 +220,7 @@ export function pageCollections(route) {
                         {
                             type: "button",
                             className: "btn circle transparent secondary tooltip-bottom btn-collection-settings",
-                            ariaLabel: app.attrs.tooltip("Collection settings"),
+                            ariaLabel: () => app.attrs.tooltip(i18n("records.collectionSettings")),
                             onclick: () => {
                                 app.modals.openCollectionUpsert(app.store.activeCollection, {
                                     ontruncate: () => refreshRecordsList(),
@@ -241,7 +241,8 @@ export function pageCollections(route) {
                         onclick: () => refreshRecordsList(),
                         className: () =>
                             `btn transparent circle rotate-btn ${pageData.suggestReset ? "warning" : "secondary"}`,
-                        tooltip: () => `Refresh${pageData.suggestReset ? "\n(list changed)" : ""}`,
+                        tooltip: () =>
+                            i18n("records.refresh") + (pageData.suggestReset ? "\n" + i18n("records.listChanged") : ""),
                     }),
                 ),
                 t.div(
@@ -257,7 +258,7 @@ export function pageCollections(route) {
                             onclick: () => app.modals.openApiPreview(app.store.activeCollection),
                         },
                         t.i({ className: "ri-code-s-slash-line", ariaHidden: true }),
-                        t.span({ className: "txt", textContent: "API preview" }),
+                        t.span({ className: "txt", textContent: () => i18n("records.apiPreview") }),
                     ),
                     () => {
                         if (app.store.activeCollection?.type == "view") {
@@ -271,7 +272,7 @@ export function pageCollections(route) {
                                 onclick: () => app.modals.openRecordUpsert(app.store.activeCollection),
                             },
                             t.i({ className: "ri-add-line", ariaHidden: true }),
-                            t.span({ className: "txt", textContent: "New record" }),
+                            t.span({ className: "txt", textContent: () => i18n("records.newRecordBtn") }),
                         );
                     },
                 ),
@@ -294,9 +295,9 @@ export function pageCollections(route) {
                     { className: "txt" },
                     () => {
                         if (app.store.collections?.length) {
-                            return "Select collection from the sidebar.";
+                            return i18n("records.selectCollection");
                         }
-                        return "No collections found.";
+                        return i18n("records.noCollectionsFound");
                     },
                 ),
             ),
@@ -339,7 +340,7 @@ export function pageCollections(route) {
                     {
                         className: () => `total-count ${pageData.isTotalCountLoading ? "faded" : ""}`,
                     },
-                    "Total: ",
+                    () => i18n("records.total"),
                     () => pageData.totalCount,
                 ),
                 app.components.credits(),

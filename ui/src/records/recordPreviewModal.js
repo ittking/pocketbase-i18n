@@ -50,7 +50,7 @@ function copyJSON(record) {
     }
 
     app.utils.copyToClipboard(JSON.stringify(record, null, 2));
-    app.toasts.success("Record copied to clipboard!");
+    app.toasts.success(i18n("records.copiedToClipboard"));
 }
 
 function recordPreviewModal(rawRecord, modalSettings) {
@@ -216,7 +216,7 @@ function recordPreviewModal(rawRecord, modalSettings) {
                     className: "btn transparent m-r-auto",
                     onclick: () => app.modals.close(modal),
                 },
-                t.span({ className: "txt" }, "Close"),
+                t.span({ className: "txt" }, () => i18n("records.close")),
             ),
             t.button(
                 {
