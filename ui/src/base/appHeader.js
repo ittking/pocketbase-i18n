@@ -1,6 +1,5 @@
-// Inline translations - completely static to prevent tree-shaking
-const _lang = localStorage.getItem("pbLanguage") || "en";
-const _isZh = _lang === "zh";
+// i18n shorthand
+const _ = window.app.i18n;
 
 export function appHeader() {
     return () => {
@@ -87,7 +86,7 @@ export function appHeader() {
                         },
                     },
                     t.i({ className: "ri-group-line", ariaHidden: true }),
-                    t.span({ className: "txt" }, _isZh ? "管理超级用户" : "Manage superusers"),
+                    t.span({ className: "txt" }, _("header.manageSuperusers")),
                 ),
                 t.hr(),
                 t.button(
@@ -97,7 +96,7 @@ export function appHeader() {
                         onclick: () => app.pb.authStore.clear(),
                     },
                     t.i({ className: "ri-logout-circle-line", ariaHidden: true }),
-                    t.span({ className: "txt" }, _isZh ? "退出登录" : "Logout"),
+                    t.span({ className: "txt" }, _("header.logout")),
                 ),
             ),
         );
@@ -106,9 +105,9 @@ export function appHeader() {
 
 function colorSchemeButton() {
     const options = [
-        { value: "light", icon: "ri-sun-line", label: _isZh ? "浅色" : "Light" },
-        { value: "dark", icon: "ri-moon-line", label: _isZh ? "深色" : "Dark" },
-        { value: "", icon: "ri-subtract-line", label: _isZh ? "自动" : "Auto" },
+        { value: "light", icon: "ri-sun-line", label: _("colorScheme.light") },
+        { value: "dark", icon: "ri-moon-line", label: _("colorScheme.dark") },
+        { value: "", icon: "ri-subtract-line", label: _("colorScheme.auto") },
     ];
 
     return [
@@ -117,7 +116,7 @@ function colorSchemeButton() {
                 type: "button",
                 className: "header-link color-scheme-picker",
                 "html-popovertarget": "color-scheme-dropdown",
-                title: _isZh ? "主题模式" : "Color scheme",
+                title: _("colorScheme.title"),
             },
             t.i({
                 className: () => app.store.activeColorScheme == "dark" ? "ri-moon-line" : "ri-sun-line",
@@ -155,18 +154,13 @@ function colorSchemeButton() {
 }
 
 function languageButton() {
-    const langs = [
-        { code: "en", name: "English" },
-        { code: "zh", name: "中文" },
-    ];
-
     return [
         t.button(
             {
                 type: "button",
                 className: "header-link language-picker",
                 "html-popovertarget": "language-dropdown",
-                title: _isZh ? "语言" : "Language",
+                title: _("language.title"),
             },
             t.i({ className: "ri-translate", ariaHidden: true }),
         ),
@@ -178,15 +172,17 @@ function languageButton() {
                 popover: "auto",
             },
             () => {
-                return langs.map((lang) => {
+                return window.app.i18nLangs.map((lang) => {
                     return t.button(
                         {
                             type: "button",
-                            className: () => `dropdown-item dropdown-item-lang ${_lang === lang.code ? "active" : ""}`,
+                            className: () =>
+                                `dropdown-item dropdown-item-lang ${
+                                    window.app.i18nGetLang() === lang.code ? "active" : ""
+                                }`,
                             onclick: (e) => {
                                 e.target.closest(".dropdown").hidePopover();
-                                localStorage.setItem("pbLanguage", lang.code);
-                                window.location.reload();
+                                window.app.i18nSetLang(lang.code);
                             },
                         },
                         t.span({ className: "txt" }, lang.name),

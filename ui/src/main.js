@@ -4,6 +4,7 @@ import "./utils";
 import "./mimeTypes";
 import "./store";
 import "./pb";
+import "./locales"; // i18n must load before appHeader
 import "./base/appHeader";
 import "./base/autoAccordionOpenOnError";
 import "./base/dropdownKeyboardNav";
