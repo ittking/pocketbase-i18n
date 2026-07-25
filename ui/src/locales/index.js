@@ -11,6 +11,9 @@ const translations = {
     en: {
         "header.manageSuperusers": "Manage superusers",
         "header.logout": "Logout",
+        "nav.collections": "Collections",
+        "nav.logs": "Logs",
+        "nav.settings": "Settings",
         "colorScheme.light": "Light",
         "colorScheme.dark": "Dark",
         "colorScheme.auto": "Auto",
@@ -20,6 +23,9 @@ const translations = {
     zh: {
         "header.manageSuperusers": "管理超级用户",
         "header.logout": "退出登录",
+        "nav.collections": "集合",
+        "nav.logs": "日志",
+        "nav.settings": "设置",
         "colorScheme.light": "浅色",
         "colorScheme.dark": "深色",
         "colorScheme.auto": "自动",

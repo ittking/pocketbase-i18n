@@ -53,7 +53,7 @@ export function appHeader() {
                                     return t.i({ className: link.icon, ariaHidden: true });
                                 }
                             },
-                            t.span({ className: "txt" }, () => link.label),
+                            t.span({ className: "txt" }, () => _(link.label)),
                         );
                     });
                 },

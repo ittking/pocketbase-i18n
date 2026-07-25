@@ -60,17 +60,17 @@ window.app.store = store({
             // optional: isActive
             href: "#/collections",
             icon: "ri-database-2-line",
-            label: "Collections",
+            label: "nav.collections",
         },
         {
             href: "#/logs",
             icon: "ri-bar-chart-box-line",
-            label: "Logs",
+            label: "nav.logs",
         },
         {
             href: "#/settings",
             icon: "ri-settings-3-line",
-            label: "Settings",
+            label: "nav.settings",
         },
     ],
 
