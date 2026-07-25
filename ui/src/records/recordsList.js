@@ -234,7 +234,7 @@ window.app.components.recordsList = function(propsArg = {}) {
         selectAll(false);
 
         app.toasts.success(
-            `Successfully deleted ${idsToDelete.length} ${idsToDelete.length == 1 ? "record" : "records"}.`,
+            i18n("records.deleted").replace("{count}", idsToDelete.length),
         );
     }
 
@@ -518,7 +518,7 @@ window.app.components.recordsList = function(propsArg = {}) {
 
                                 return t.div(
                                     { className: "sticky-content txt-center txt-hint" },
-                                    t.div({ className: "txt-bold" }, "No records found."),
+                                    t.div({ className: "txt-bold" }, () => i18n("records.noRecordsFound")),
                                     t.button(
                                         {
                                             hidden: () => props.filter?.length || props.collection?.type == "view",
@@ -529,7 +529,7 @@ window.app.components.recordsList = function(propsArg = {}) {
                                             },
                                         },
                                         t.i({ className: "ri-add-line" }),
-                                        t.span({ className: "txt" }, "New record"),
+                                        t.span({ className: "txt" }, () => i18n("records.newRecord")),
                                     ),
                                     t.button(
                                         {
@@ -541,7 +541,7 @@ window.app.components.recordsList = function(propsArg = {}) {
                                                 triggerOnchange();
                                             },
                                         },
-                                        t.span({ className: "txt" }, "Clear search"),
+                                        t.span({ className: "txt" }, () => i18n("records.clearSearch")),
                                     ),
                                 );
                             }),
@@ -695,7 +695,7 @@ window.app.components.recordsList = function(propsArg = {}) {
                                 disabled: () => data.isLoading,
                                 onclick: () => loadRecords(),
                             },
-                            t.span({ className: "txt" }, "Load more"),
+                            t.span({ className: "txt" }, () => i18n("records.loadMore")),
                         ),
                     ),
                 ),
@@ -710,9 +710,9 @@ window.app.components.recordsList = function(propsArg = {}) {
                 },
                 t.span(
                     { className: "txt" },
-                    "Selected ",
+                    () => i18n("records.selected"),
                     t.strong(null, () => data.totalSelected),
-                    () => ` ${data.totalSelected == 1 ? "record" : "records"}`,
+                    () => ` ${data.totalSelected == 1 ? i18n("records.record") : i18n("records.records")}`,
                 ),
                 t.button(
                     {
@@ -720,7 +720,7 @@ window.app.components.recordsList = function(propsArg = {}) {
                         className: "btn sm secondary pill m-r-auto",
                         onclick: () => selectAll(false),
                     },
-                    t.span({ className: "txt" }, "Reset"),
+                    t.span({ className: "txt" }, () => i18n("records.reset")),
                 ),
                 () => {
                     if (props.collection?.type == "view") {
@@ -732,13 +732,13 @@ window.app.components.recordsList = function(propsArg = {}) {
                             className: "btn sm pill outline danger",
                             onclick: () => {
                                 app.modals.confirm(
-                                    "Do you really want to delete the selected records?",
+                                    i18n("records.confirmDelete"),
                                     deleteSelected,
                                 );
                             },
                         },
                         t.i({ className: "ri-delete-bin-7-line", ariaHidden: true }),
-                        t.span({ className: "txt" }, "Delete"),
+                        t.span({ className: "txt" }, () => i18n("records.delete")),
                     );
                 },
                 t.button(
@@ -748,7 +748,7 @@ window.app.components.recordsList = function(propsArg = {}) {
                         onclick: () => downloadSelected(),
                     },
                     t.i({ className: "ri-download-line", ariaHidden: true }),
-                    t.span({ className: "txt" }, "JSON"),
+                    t.span({ className: "txt" }, () => i18n("records.exportJSON")),
                 ),
             ),
         ),
@@ -819,7 +819,7 @@ function columnsDropdown(props, data) {
         {
             hidden: () => props.collection?.fields.length <= 1,
             type: "button",
-            title: "Toggle columns",
+            title: () => i18n("records.toggleColumns"),
             className: "btn sm secondary transparent circle",
             popoverTargetElement: dropdown,
         },
