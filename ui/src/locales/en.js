@@ -140,6 +140,8 @@ window.app.i18nLocales.en = {
         notEmptyArray: "(!=[])",
         notEmptyString: "(!='')",
         defaultMaxSize: "~5MB default",
+        verified: "Verified",
+        emailVisibility: "Email visibility",
     },
     // === collections ===
     collections: {
@@ -495,6 +497,9 @@ window.app.i18nLocales.en = {
     common: {
         create: "Create",
         cancel: "Cancel",
+        yes: "Yes",
+        no: "No",
+        saveChanges: "Save changes",
         enabled: "Enabled",
         yesNoCancel: "Yes, No, Cancel",
         copied: "Copied",
@@ -543,6 +548,12 @@ window.app.i18nLocales.en = {
         uploadOrDropNewFile: "Upload or drop new file",
         generateRandomPassword: "Generate and set random password",
         leaveEmptyToAutogenerate: "Leave empty to autogenerate...",
+        makeEmailPublicOrPrivate: "Make email public or private",
+        verifyAccountChange:
+            "Do you really want to manually change the verified account state from \"{from}\" to \"{to}\"?",
+        yesVerify: "Yes, verify",
+        yesUnverify: "Yes, unverify",
+        close: "Close",
     },
     // === logs page (not modal) ===
     logsPage: {

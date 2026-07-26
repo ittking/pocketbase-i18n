@@ -140,6 +140,8 @@ window.app.i18nLocales.zh = {
         notEmptyArray: "(!=[])",
         notEmptyString: "(!='')",
         defaultMaxSize: "默认约 5MB",
+        verified: "已验证",
+        emailVisibility: "邮箱可见性",
     },
     // === collections ===
     collections: {
@@ -487,6 +489,9 @@ window.app.i18nLocales.zh = {
         close: "关闭",
         create: "创建",
         cancel: "取消",
+        yes: "是",
+        no: "否",
+        saveChanges: "保存更改",
         enabled: "已启用",
         yesNoCancel: "是、否、取消",
         copied: "已复制",
@@ -535,6 +540,11 @@ window.app.i18nLocales.zh = {
         uploadOrDropNewFile: "上传或拖放新文件",
         generateRandomPassword: "生成并设置随机密码",
         leaveEmptyToAutogenerate: "留空以自动生成...",
+        makeEmailPublicOrPrivate: "设置邮箱公开或私密",
+        verifyAccountChange: "您确定要手动将已验证账户状态从\"{from}\"更改为\"{to}\"吗？",
+        yesVerify: "是的，验证",
+        yesUnverify: "是的，取消验证",
+        close: "关闭",
     },
     // === logs page (not modal) ===
     logsPage: {

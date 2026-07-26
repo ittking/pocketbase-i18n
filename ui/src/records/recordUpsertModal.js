@@ -647,7 +647,7 @@ function recordUpsertModal(collection, rawRecord, modalSettings) {
                                     resetForm();
                                 },
                             },
-                            t.span({ className: "txt" }, "Reset form"),
+                            t.span({ className: "txt" }, () => i18n("collections.resetForm")),
                         ),
                     ),
                 ),
@@ -1141,7 +1141,7 @@ function authFieldEmail(collection, data) {
                     {
                         type: "button",
                         className: () => `btn sm transparent ${data.record.emailVisibility ? "success" : "secondary"}`,
-                        ariaDescription: app.attrs.tooltip("Make email public or private", "top-right"),
+                        ariaDescription: app.attrs.tooltip(() => i18n("common.makeEmailPublicOrPrivate"), "top-right"),
                         onclick: () => {
                             data.record.emailVisibility = !data.record.emailVisibility;
                         },
@@ -1186,13 +1186,16 @@ function authFieldVerified(collection, data) {
         }
 
         app.modals.confirm(
-            `Do you really want to manually change the verified account state from "${!data.record
-                .verified}" to "${data.record.verified}"?`,
+            () =>
+                i18n("common.verifyAccountChange").replace("{from}", String(!data.record.verified)).replace(
+                    "{to}",
+                    String(data.record.verified),
+                ),
             null,
             () => {
                 data.record.verified = !data.record.verified;
             },
-            { yesButton: "Yes, " + (data.record.verified ? "verify" : "unverify") },
+            { yesButton: data.record.verified ? () => i18n("common.yesUnverify") : () => i18n("common.yesVerify") },
         );
     });
 

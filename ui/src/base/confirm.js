@@ -107,7 +107,7 @@ const confirmElem = t.div(
                         }
 
                         if (typeof data.noButton === "function") {
-                            return data.noButton(el);
+                            return t.span({ className: "txt" }, data.noButton());
                         }
 
                         return data.noButton;
@@ -145,7 +145,7 @@ const confirmElem = t.div(
                         }
 
                         if (typeof data.yesButton === "function") {
-                            return data.yesButton(el);
+                            return t.span({ className: "txt" }, data.yesButton());
                         }
 
                         return data.yesButton;
