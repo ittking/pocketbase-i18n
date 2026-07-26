@@ -62,7 +62,7 @@ function collectionsOverviewModal(settings = {}) {
                     { className: "col-12" },
                     t.div(
                         { className: "flex" },
-                        t.h6({ className: "modal-title" }, "Collections overview"),
+                        t.h6({ className: "modal-title" }, () => i18n("collections.collectionsOverview")),
                         t.div({ className: "flex-fill" }),
                         t.div(
                             { className: "field" },
@@ -73,7 +73,10 @@ function collectionsOverviewModal(settings = {}) {
                                 checked: () => data.showSystemCollections,
                                 onchange: (e) => data.showSystemCollections = e.target.checked,
                             }),
-                            t.label({ htmlFor: uniqueId + ".showSystemCollections" }, "System collections"),
+                            t.label(
+                                { htmlFor: uniqueId + ".showSystemCollections" },
+                                () => i18n("collections.systemCollections"),
+                            ),
                         ),
                         t.button(
                             {
@@ -98,7 +101,7 @@ function collectionsOverviewModal(settings = {}) {
                                     type: "button",
                                     className: () => `tab-item ${data.activeTab == key ? "active" : ""}`,
                                     onclick: () => data.activeTab = key,
-                                    textContent: tabs[key].label,
+                                    textContent: tabs[key].label(),
                                 }));
                             }
 
@@ -159,7 +162,7 @@ function rules(data) {
         { value: "manageRule", label: () => i18n("records.manageRule"), filter: (c) => c.type == "auth" },
         {
             value: "mfaRule",
-            label: () => i18n("records.mfaRule"),
+            label: () => i18n("collections.mfaRule"),
             emptyLabel: t.span({ className: "label info" }, () => i18n("records.no")),
             rule: (c) => c.mfa?.rule,
             filter: (c) => c.mfa?.enabled && c.type == "auth",
@@ -199,7 +202,7 @@ function rules(data) {
                                                     ? "outline"
                                                     : "transparent secondary"
                                             }`,
-                                        textContent: () => opt.label,
+                                        textContent: () => opt.label(),
                                         onclick: () => local.activeRuleOption = opt,
                                     });
                                 });
@@ -257,7 +260,10 @@ function rules(data) {
                                                 return local.activeRuleOption.nullLabel;
                                             }
 
-                                            return t.span({ className: "label success" }, "Superusers only");
+                                            return t.span(
+                                                { className: "label success" },
+                                                () => i18n("collections.superusersOnly"),
+                                            );
                                         }
 
                                         if (rule === "") {
@@ -265,7 +271,10 @@ function rules(data) {
                                                 return local.activeRuleOption.emptyLabel;
                                             }
 
-                                            return t.span({ className: "label info" }, "Public");
+                                            return t.span(
+                                                { className: "label info" },
+                                                () => i18n("collections.public"),
+                                            );
                                         }
 
                                         return app.components.codeBlock({
