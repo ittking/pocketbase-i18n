@@ -1347,7 +1347,7 @@ function authFieldPassword(collection, data) {
                             app.toasts.info("Generated and copied random password to clipboard.");
                         },
                     },
-                    "Generate and set random password",
+                    i18n("common.generateRandomPassword"),
                 ),
             ),
         ),

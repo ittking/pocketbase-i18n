@@ -532,6 +532,9 @@ window.app.i18nLocales.zh = {
         noRecordsSelectable: "未找到可选择文件的记录。",
         setSelection: "设置选择",
         noSelectedRecords: "未选择记录。",
+        uploadOrDropNewFile: "上传或拖放新文件",
+        generateRandomPassword: "生成并设置随机密码",
+        leaveEmptyToAutogenerate: "留空以自动生成...",
     },
     // === logs page (not modal) ===
     logsPage: {

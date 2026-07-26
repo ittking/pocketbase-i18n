@@ -540,6 +540,9 @@ window.app.i18nLocales.en = {
         noRecordsSelectable: "No records with selectable files found.",
         setSelection: "Set selection",
         noSelectedRecords: "No selected records.",
+        uploadOrDropNewFile: "Upload or drop new file",
+        generateRandomPassword: "Generate and set random password",
+        leaveEmptyToAutogenerate: "Leave empty to autogenerate...",
     },
     // === logs page (not modal) ===
     logsPage: {

@@ -214,7 +214,7 @@ export function input(props) {
                 },
             },
             t.i({ className: "ri-upload-cloud-line", ariaHidden: true }),
-            t.span({ className: "txt" }, "Upload or drop new file"),
+            t.span({ className: "txt" }, () => i18n("common.uploadOrDropNewFile")),
         ),
     );
 
