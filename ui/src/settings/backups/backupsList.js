@@ -45,7 +45,7 @@ export function backupsList(propsArg = {}) {
     }
 
     async function confirmBackupDelete(key) {
-        app.modals.confirm(`Do you really want to delete ${key}?`, () => deleteBackup(key));
+        app.modals.confirm(() => i18n("settings.backupConfirmDelete").replace("{key}", key), () => deleteBackup(key));
     }
 
     async function deleteBackup(key) {
@@ -159,7 +159,7 @@ export function backupsList(propsArg = {}) {
                             t.button(
                                 {
                                     type: "button",
-                                    ariaLabel: app.attrs.tooltip("Download"),
+                                    ariaLabel: app.attrs.tooltip(() => i18n("settings.backupDownload")),
                                     className: () =>
                                         `btn sm circle secondary transparent ${
                                             data.isDownloading[backup.key] ? "loading" : ""
@@ -172,7 +172,7 @@ export function backupsList(propsArg = {}) {
                             t.button(
                                 {
                                     type: "button",
-                                    ariaLabel: app.attrs.tooltip("Restore"),
+                                    ariaLabel: app.attrs.tooltip(() => i18n("settings.backupRestore")),
                                     className: () => `btn sm circle secondary transparent`,
                                     disabled: () => data.isDeleting[backup.key] || data.isDownloading[backup.key],
                                     onclick: () => openBackupRestoreModal(backup.key),
@@ -182,7 +182,7 @@ export function backupsList(propsArg = {}) {
                             t.button(
                                 {
                                     type: "button",
-                                    ariaLabel: app.attrs.tooltip("Delete"),
+                                    ariaLabel: app.attrs.tooltip(() => i18n("settings.backupDelete")),
                                     className: () =>
                                         `btn sm circle secondary transparent ${
                                             data.isDeleting[backup.key] ? "loading" : ""
@@ -220,7 +220,7 @@ export function backupsList(propsArg = {}) {
 
                     return [
                         t.span({ className: "loader sm" }),
-                        t.span({ className: "txt" }, () => i18n("common.loading")),
+                        t.span({ className: "txt" }, () => i18n("settings.loading")),
                     ];
                 },
             ),

@@ -16,7 +16,7 @@ export function settingsSidebar() {
                         { className: "nav-group", "html-data-group": groupName, open: true },
                         t.summary(
                             { tabIndex: -1, onfocusout: () => false, onclick: () => false, onkeyup: () => false },
-                            groupName,
+                            () => i18n("settings." + groupName.toLowerCase()),
                         ),
                         () => {
                             return children.map((link) => {
@@ -38,7 +38,7 @@ export function settingsSidebar() {
                                             return t.i({ className: link.icon, ariaHidden: true });
                                         }
                                     },
-                                    t.span({ className: "txt" }, () => link.label),
+                                    t.span({ className: "txt" }, () => i18n(link.label)),
                                 );
                             });
                         },

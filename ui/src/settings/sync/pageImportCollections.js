@@ -1,7 +1,7 @@
 import { settingsSidebar } from "../settingsSidebar";
 
 export function pageImportCollections(route) {
-    app.store.title = "Import collections";
+    app.store.title = i18n("settings.importCollectionsTitle");
 
     const uniqueId = "import_" + app.utils.randomString();
 
@@ -252,13 +252,13 @@ export function pageImportCollections(route) {
             await new Promise((r) => setTimeout(r, 0));
 
             if (!data.newCollections.length) {
-                app.toasts.error("Invalid collections configuration.");
+                app.toasts.error(() => i18n("settings.invalidCollectionsConfig"));
                 clear();
             }
         };
 
         reader.onerror = (err) => {
-            app.toasts.error("Failed to load the imported JSON.");
+            app.toasts.error(() => i18n("settings.failedToLoadJson"));
             console.warn(err);
 
             data.isLoadingFile = false;
@@ -297,7 +297,7 @@ export function pageImportCollections(route) {
                 { className: "page-header" },
                 t.nav(
                     { className: "breadcrumbs" },
-                    t.div({ className: "breadcrumb-item" }, () => i18n("common.rule")),
+                    t.div({ className: "breadcrumb-item" }, () => i18n("settings.settings")),
                     t.div({ className: "breadcrumb-item" }, () => app.store.title),
                 ),
             ),
@@ -319,28 +319,14 @@ export function pageImportCollections(route) {
                                 htmlFor: fileInput.id,
                                 className: () => `btn sm outline ${data.isLoadingFile ? "loading" : ""}`,
                             },
-                            t.span({ className: "txt" }, () => i18n("common.download")),
+                            t.span({ className: "txt" }, () => i18n("settings.uploadJson")),
                         ),
                         fileInput,
                         t.p(
                             { className: "txt-hint" },
                             t.em(
                                 null,
-                                "You can use the ",
-                                t.a({
-                                    href: `${import.meta.env.PB_DOCS_URL}/go-migrations/`,
-                                    target: "_blank",
-                                    rel: "noopener noreferrer",
-                                    textContent: "Go",
-                                }),
-                                " or ",
-                                t.a({
-                                    href: `${import.meta.env.PB_DOCS_URL}/js-migrations/`,
-                                    target: "_blank",
-                                    rel: "noopener noreferrer",
-                                    textContent: "JS",
-                                }),
-                                " migrations to manage your collections programmatically in more granular and version controlled manner.",
+                                () => i18n("settings.goMigrations"),
                             ),
                         ),
                     ),
@@ -413,7 +399,7 @@ export function pageImportCollections(route) {
                                         { className: "list-item" },
                                         t.span({
                                             className: "label import-change-label danger",
-                                            textContent: "Deleted",
+                                            textContent: () => i18n("settings.importDeleted"),
                                         }),
                                         t.div(
                                             { className: "inline-flex gap-5" },
@@ -433,7 +419,7 @@ export function pageImportCollections(route) {
                                         { className: "list-item" },
                                         t.span({
                                             className: "label import-change-label warning",
-                                            textContent: "Changed",
+                                            textContent: () => i18n("settings.importChanged"),
                                         }),
                                         t.div(
                                             { className: "inline-flex gap-5" },
@@ -469,7 +455,7 @@ export function pageImportCollections(route) {
                                         { className: "list-item" },
                                         t.span({
                                             className: "label import-change-label success",
-                                            textContent: "Added",
+                                            textContent: () => i18n("settings.importAdded"),
                                         }),
                                         t.div(
                                             { className: "inline-flex gap-5" },
@@ -494,15 +480,15 @@ export function pageImportCollections(route) {
                                 { className: "content" },
                                 t.p(
                                     null,
-                                    "Some of the imported collections share the same name and/or fields but are imported with different IDs.",
+                                    () => i18n("settings.collectionsShareSameName"),
                                 ),
                                 t.p(
                                     null,
-                                    "You can replace them in the import if you want to:",
+                                    () => i18n("settings.replaceWithOriginalIds"),
                                     t.button({
                                         type: "button",
                                         className: "btn warning sm m-l-10",
-                                        textContent: "Replace with original IDs",
+                                        textContent: () => i18n("settings.replaceWithOriginalIdsBtn"),
                                         onclick: replaceIds,
                                     }),
                                 ),

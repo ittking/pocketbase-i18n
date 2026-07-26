@@ -1,7 +1,7 @@
 import { settingsSidebar } from "../settingsSidebar";
 
 export function pageExportCollections(route) {
-    app.store.title = "Export collections";
+    app.store.title = i18n("settings.exportCollectionsTitle");
 
     const uniqueId = "export_" + app.utils.randomString();
 
@@ -90,7 +90,7 @@ export function pageExportCollections(route) {
                 { className: "page-header" },
                 t.nav(
                     { className: "breadcrumbs" },
-                    t.div({ className: "breadcrumb-item" }, () => i18n("common.rule")),
+                    t.div({ className: "breadcrumb-item" }, () => i18n("settings.settings")),
                     t.div({ className: "breadcrumb-item" }, () => app.store.title),
                 ),
             ),

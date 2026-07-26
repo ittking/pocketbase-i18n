@@ -184,11 +184,11 @@ window.app.components.s3ConfigFields = function(propsArg = {}) {
                         }),
                         t.label(
                             { htmlFor: () => `${props.configKey}.forcePathStyle` },
-                            t.span({ className: "txt" }, "Force path-style addressing"),
+                            t.span({ className: "txt" }, () => i18n("settings.forcePathStyleAddressing")),
                             t.i({
                                 className: "ri-information-line link-hint",
                                 ariaDescription: app.attrs.tooltip(
-                                    `Forces the request to use path-style addressing, eg. "https://s3.amazonaws.com/BUCKET/KEY" instead of the default "https://BUCKET.s3.amazonaws.com/KEY".`,
+                                    () => i18n("settings.forcePathStyleAddressingHint"),
                                 ),
                             }),
                         ),

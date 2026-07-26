@@ -80,46 +80,46 @@ window.app.store = store({
                 // optional: isActive
                 href: "#/settings",
                 icon: "ri-home-gear-line",
-                label: "Application",
+                label: "settings.application",
             },
             {
                 href: "#/settings/mail",
                 icon: "ri-send-plane-2-line",
-                label: "Mail settings",
+                label: "settings.mailSettings",
             },
             {
                 href: "#/settings/storage",
                 icon: "ri-archive-drawer-line",
-                label: "Files storage",
+                label: "settings.fileStorage",
             },
             {
                 href: "#/settings/backups",
                 icon: "ri-archive-line",
-                label: "Backups",
+                label: "settings.backups",
             },
             {
                 href: "#/settings/crons",
                 icon: "ri-time-line",
-                label: "Crons",
+                label: "settings.crons",
             },
         ],
         Sync: [
             {
                 href: "#/settings/export-collections",
                 icon: "ri-uninstall-line",
-                label: "Export collections",
+                label: "settings.exportCollections",
             },
             {
                 href: "#/settings/import-collections",
                 icon: "ri-install-line",
-                label: "Import collections",
+                label: "settings.importCollections",
             },
         ],
         Debug: [
             {
                 href: "#/settings/sql",
                 icon: "ri-terminal-box-line",
-                label: "SQL console",
+                label: "settings.sqlConsole",
             },
         ],
     },

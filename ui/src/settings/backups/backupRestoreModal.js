@@ -65,7 +65,7 @@ function backupRestoreModal(key) {
             { className: "modal-header" },
             t.h5(
                 { className: "m-auto txt-center" },
-                () => i18n("common.reset") + " ",
+                () => i18n("settings.restoreBackup") + " ",
                 t.strong(null, () => data.key),
             ),
         ),
@@ -89,42 +89,34 @@ function backupRestoreModal(key) {
                             { className: "content" },
                             t.p(
                                 { className: "txt-bold" },
-                                "Please proceed with extreme caution and use it only with trusted backups!",
+                                () => i18n("settings.restoreWarning1"),
                             ),
-                            t.p(null, "Backup restore currently works only on UNIX based systems."),
+                            t.p(null, () => i18n("settings.restoreWarning2")),
                             t.p(
                                 null,
-                                "The restore operation will attempt to replace your existing ",
-                                t.code(null, "pb_data"),
-                                " with the one from the backup and will restart the application process.",
-                            ),
-                            t.p(
-                                null,
-                                "This means that on success all of your data (including app settings, users, superusers, etc.) will be replaced with the ones from the backup.",
+                                () => i18n("settings.restoreWarning3"),
                             ),
                             t.p(
                                 null,
-                                "The operation will be reverted if the backup is invalid (ex. missing ",
-                                t.code(null, "data.db"),
-                                " file).",
+                                () => i18n("settings.restoreWarning4"),
                             ),
-                            t.p(null, "Below is an oversimplified version of the restore flow:"),
+                            t.p(
+                                null,
+                                () => i18n("settings.restoreWarning5"),
+                            ),
+                            t.p(null, () => i18n("settings.restoreWarning6")),
                             t.ol(
                                 null,
                                 t.li(
                                     null,
-                                    "Replaces the current ",
-                                    t.code(null, "pb_data"),
-                                    " with the content from the backup.",
+                                    () => i18n("settings.restoreStep1"),
                                 ),
-                                t.li(null, "Triggers app restart."),
+                                t.li(null, () => i18n("settings.restoreStep2")),
                                 t.li(
                                     null,
-                                    "Applies all migrations that are missing in the restored ",
-                                    t.code(null, "pb_data"),
-                                    ".",
+                                    () => i18n("settings.restoreStep3"),
                                 ),
-                                t.li(null, "Initializes the app server as usual."),
+                                t.li(null, () => i18n("settings.restoreStep4")),
                             ),
                         ),
                     ),
@@ -133,17 +125,16 @@ function backupRestoreModal(key) {
                     { className: "col-lg-12" },
                     t.div(
                         { className: "confirm-key-label m-b-sm" },
-                        "Type the backup name ",
+                        () => i18n("settings.typeBackupNameToConfirm"),
                         t.div(
                             { className: "label" },
                             () => data.key,
                             app.components.copyButton(() => data.key),
                         ),
-                        " to confirm:",
                     ),
                     t.div(
                         { className: "field" },
-                        t.label({ htmlFor: uniqueId + "_key" }, "Backup name"),
+                        t.label({ htmlFor: uniqueId + "_key" }, () => i18n("settings.backupName")),
                         t.input({
                             id: uniqueId + "_key",
                             name: "key",
@@ -174,7 +165,7 @@ function backupRestoreModal(key) {
                     className: () => `btn ${data.isSubmitting ? "loading" : ""}`,
                     disabled: () => data.isSubmitting || !data.canSubmit,
                 },
-                t.span({ className: "txt" }, () => i18n("common.reset")),
+                t.span({ className: "txt" }, () => i18n("settings.backupRestore")),
             ),
         ),
     );

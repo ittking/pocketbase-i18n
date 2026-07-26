@@ -6,10 +6,10 @@ export function backupsForm(propsArg = {}) {
     const watchers = app.utils.extendStore(props, propsArg);
 
     const presets = [
-        { cron: "0 0 * * *", label: "Every day at 00:00h" },
-        { cron: "0 0 * * 0", label: "Every sunday at 00:00h" },
-        { cron: "0 0 * * 1,3", label: "Every Mon and Wed at 00:00h" },
-        { cron: "0 0 1 * *", label: "Every first day of the month at 00:00h" },
+        { cron: "0 0 * * *", label: () => i18n("settings.everyDayAt") },
+        { cron: "0 0 * * 0", label: () => i18n("settings.everySundayAt") },
+        { cron: "0 0 * * 1,3", label: () => i18n("settings.everyMonAndWedAt") },
+        { cron: "0 0 1 * *", label: () => i18n("settings.everyFirstDayOfMonthAt") },
     ];
 
     const data = store({
@@ -177,7 +177,7 @@ export function backupsForm(propsArg = {}) {
                                                         className: "btn outline sm",
                                                         "html-popovertarget": "cron-presets-dropdown",
                                                     },
-                                                    t.span({ className: "txt" }, () => i18n("common.presentable")),
+                                                    t.span({ className: "txt" }, () => i18n("settings.cronPresets")),
                                                     t.i({ className: "ri-arrow-drop-down-line", ariaHidden: true }),
                                                 ),
                                                 t.div(
@@ -209,26 +209,17 @@ export function backupsForm(propsArg = {}) {
                                         ),
                                         t.div(
                                             { className: "field-help" },
-                                            "Supports numeric list, steps, ranges or ",
-                                            t.strong(
-                                                {
-                                                    className: "link-hint tooltip-bottom",
-                                                    ariaDescription: app.attrs.tooltip(
-                                                        "@yearly\n@annually\n@monthly\n@weekly\n@daily\n@midnight\n@hourly",
-                                                    ),
-                                                },
-                                                "macros",
-                                            ),
-                                            ".",
-                                            t.br(),
-                                            "By default the timezone is in UTC.",
+                                            () => i18n("settings.cronFormatHelp"),
                                         ),
                                     ),
                                     t.div(
                                         { className: "col-lg-6" },
                                         t.div(
                                             { className: "field" },
-                                            t.label({ htmlFor: "backups.cronMaxKeep" }, () => i18n("common.hidden")),
+                                            t.label(
+                                                { htmlFor: "backups.cronMaxKeep" },
+                                                () => i18n("settings.maxBackupsToKeep"),
+                                            ),
                                             t.input({
                                                 id: "backups.cronMaxKeep",
                                                 name: "backups.cronMaxKeep",
@@ -251,7 +242,7 @@ export function backupsForm(propsArg = {}) {
                         t.div(
                             { className: "col-lg-12" },
                             app.components.s3ConfigFields({
-                                toggleLabel: "Store backups in S3 storage",
+                                toggleLabel: () => i18n("settings.storeBackupsInS3"),
                                 testFilesystem: "backups",
                                 config: () => data.formSettings.backups.s3,
                             }),

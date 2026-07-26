@@ -225,6 +225,7 @@ window.app.i18nLocales.en = {
         success: "Success",
         warning: "Warning",
         // application
+        application: "Application",
         applicationSettings: "Application settings",
         applicationName: "Application name",
         applicationUrl: "Application URL",
@@ -238,6 +239,10 @@ window.app.i18nLocales.en = {
         maxProcessingTime: "Max processing time (in seconds)",
         maxBodySize: "Max body size (in bytes)",
         defaultTo128MB: "Default to 128MB",
+        enable: "Enable",
+        experimental: "(experimental)",
+        batchRateLimitHint:
+            "Rate limiting (if enabled) also applies for the batch create/update/upsert/delete requests.",
         ipProxyHeaders: "IP proxy headers",
         resolvedUserIp: "Resolved user IP",
         detectedProxyHeader: "Detected proxy header",
@@ -250,6 +255,52 @@ window.app.i18nLocales.en = {
         ipPriorityHint: "This is in case the proxy returns more than 1 IP in the same header.",
         superuserIps: "Superuser IPs",
         superuserIpsHint: "Comma separated list of superusers allowed IPs...",
+        // trusted proxy accordion
+        useLeftmostIP: "Use leftmost IP",
+        useRightmostIP: "Use rightmost IP",
+        detectedProxyHeaderMismatch: "The configured proxy header doesn't match with the detected one.",
+        detectedProxyHeaderRecommend: "Detected proxy header. It is recommend to list it as trusted.",
+        realIpBelowHint:
+            "Below you should see your real IP. If not - configure the correct proxy header for your environment.",
+        proxyDescription:
+            "When PocketBase is deployed on platforms like Fly or it is accessible through proxies such as NGINX, requests from different users will originate from the same IP address (the IP of the proxy connecting to your PocketBase app).",
+        proxyDescription2:
+            "In this case to retrieve the actual user IP (used for rate limiting, logging, etc.) you need to properly configure your proxy and list below the trusted headers that PocketBase could use to extract the user IP.",
+        proxySpoofingWarning: "When using such proxy, to avoid spoofing it is recommended to:",
+        proxyWarning1: "use headers that are controlled only by the proxy and cannot be manually set by the users",
+        proxyWarning2: "make sure that the PocketBase server can be accessed ONLY through the proxy",
+        clearProxyHint: "You can clear the headers field if PocketBase is not deployed behind a proxy.",
+        commaSeparatedHeadersHint: "Comma separated list of headers such as: ",
+        // rate limiting accordion
+        enable: "Enable",
+        learnMoreAboutRateLimit: "Learn more about the rate limit rules",
+        rateLimitLabel: "Rate limit label",
+        maxRequests: "Max requests",
+        perIp: "(per IP)",
+        interval: "Interval",
+        inSeconds: "(in seconds)",
+        targetedUsers: "Targeted users",
+        all: "All",
+        guestOnly: "Guest only",
+        authOnly: "Auth only",
+        addRateLimitRule: "Add rate limit rule",
+        moreOptions: "More options",
+        excludedIps: "Excluded IPs and subnets",
+        excludedIpsRateLimitHint: "Comma separated list of IPs and CIDR subnets to exclude from the rate limiter.",
+        superusersExcludedFromRateLimit:
+            "Superusers are always excluded and they can send as many requests as they want.",
+        removeRule: "Remove rule",
+        // superuser IPs accordion
+        superuserIpsDescription: "A comma separated list of superusers allowed IPs and subnets.",
+        superuserIpsSecurityNote:
+            "Enabling this option greatly helps hardening the security of your application because even if someone manage to get their hands on a superuser auth token they will not be able to use it.",
+        ipChangeResetHint: "In case your IP changes, you can always reset the field value with the",
+        superuserIpsConsoleCommand: "superuser ips",
+        consoleCommandHint: "console command.",
+        superuserIpsAndSubnets: "Superuser IPs and subnets",
+        leaveEmptyNoRestriction: "Leave empty for no restriction",
+        you: "(you)",
+        ipsAndSubnetsHint: "Comma separated list of IPs and subnets such as: ",
         // mail
         mailSettings: "Mail settings",
         mailSettingsDescription: "Configure common settings for sending emails.",
@@ -263,6 +314,12 @@ window.app.i18nLocales.en = {
         hideMoreOptions: "Hide more options",
         showMoreOptions: "Show more options",
         tlsEncryption: "TLS encryption",
+        recommended: "(recommended)",
+        autoStarttls: "Auto (STARTTLS)",
+        always: "Always",
+        authMethod: "Auth method",
+        plainDefault: "Plain (default)",
+        login: "Login",
         ehloDomain: "EHLO/HELO domain",
         defaultToLocalhost: "Default to localhost",
         sendTestEmail: "Send test email",
@@ -287,6 +344,71 @@ window.app.i18nLocales.en = {
         migrateFilesManually: "If you have existing uploaded files, you'll have to migrate them manually.",
         rclone: "rclone",
         s5cmd: "s5cmd",
+        localFileSystem: "local file system",
+        s3: "S3",
+        // backups
+        backupsTitle: "Backup and restore your PocketBase data",
+        // export/import
+        exportCollectionsTitle: "Export collections",
+        importCollectionsTitle: "Import collections",
+        downloadSchema: "Download schema",
+        invalidCollectionsConfig: "Invalid collections configuration.",
+        failedToLoadJson: "Failed to load the imported JSON.",
+        mergeWithExisting: "Merge with existing",
+        collectionsShareSameName:
+            "Some of the imported collections share the same name and/or fields but are imported with different IDs.",
+        replaceWithOriginalIds: "You can replace them in the import if you want to:",
+        replaceWithOriginalIdsBtn: "Replace with original IDs",
+        uploadJson: "Upload JSON",
+        goMigrations:
+            "You can use the Go or JS migrations to manage your collections programmatically in more granular and version controlled manner.",
+        importAdded: "Added",
+        importDeleted: "Deleted",
+        importChanged: "Changed",
+        selectAll: "Select all",
+        nothingToImport: "Nothing to import.",
+        // backups
+        backupConfirmDelete: "Do you really want to delete {key}?",
+        backupDownload: "Download",
+        backupRestore: "Restore",
+        backupDelete: "Delete",
+        backupName: "Backup name",
+        restoreBackup: "Restore backup",
+        typeBackupNameToConfirm: "Type the backup name to confirm:",
+        backupStartedMayTakeAWhile: "The backup was started but may take a while to complete. You can come back later.",
+        backupWarning1:
+            "Please note that during the backup other concurrent write requests may fail since the database will be temporary \"locked\" (this usually happens only during the ZIP generation).",
+        backupWarning2:
+            "If you are using S3 storage for the collections file upload, you'll have to backup them separately since they are not locally stored and they will not be included in the generated backup!",
+        backupNameFormat: "Must be in the format [a-z0-9_-].zip",
+        backupNameAutogenerate: "Leave empty to autogenerate",
+        restoreWarning1: "Please proceed with extreme caution and use it only with trusted backups!",
+        restoreWarning2: "Backup restore currently works only on UNIX based systems.",
+        restoreWarning3:
+            "The restore operation will attempt to replace your existing pb_data with the one from the backup and will restart the application process.",
+        restoreWarning4:
+            "This means that on success all of your data (including app settings, users, superusers, etc.) will be replaced with the ones from the backup.",
+        restoreWarning5: "The operation will be reverted if the backup is invalid (ex. missing data.db file).",
+        restoreWarning6: "Below is an oversimplified version of the restore flow:",
+        restoreStep1: "Replaces the current pb_data with the content from the backup.",
+        restoreStep2: "Triggers app restart.",
+        restoreStep3: "Applies all migrations that are missing in the restored pb_data.",
+        restoreStep4: "Initializes the app server as usual.",
+        uploadBackupConfirm:
+            "Note that we don't perform validations for the uploaded backup files. Proceed with extreme caution and only if you trust the source. Do you really want to upload \"{filename}\"?",
+        uploadBackup: "Upload backup",
+        cronPresets: "Presets",
+        everyDayAt: "Every day at 00:00h",
+        everySundayAt: "Every sunday at 00:00h",
+        everyMonAndWedAt: "Every Mon and Wed at 00:00h",
+        everyFirstDayOfMonthAt: "Every first day of the month at 00:00h",
+        cronFormatHelp: "Supports numeric list, steps, ranges or macros. By default the timezone is in UTC.",
+        storeBackupsInS3: "Store backups in S3 storage",
+        maxBackupsToKeep: "Max backups to keep",
+        // s3
+        forcePathStyleAddressing: "Force path-style addressing",
+        forcePathStyleAddressingHint:
+            "Forces the request to use path-style addressing, eg. \"https://s3.amazonaws.com/BUCKET/KEY\" instead of the default \"https://BUCKET.s3.amazonaws.com/KEY\".",
         // sql console
         sqlConsole: "SQL console",
         recentlyExecutedQueries: "Recently executed queries",
@@ -307,6 +429,14 @@ window.app.i18nLocales.en = {
         cronsDescription: "App cron jobs can be registered only programmatically with Go or JavaScript.",
         noRegisteredCrons: "No registered crons found.",
         run: "Run",
+        // sidebar
+        backups: "Backups",
+        exportCollections: "Export collections",
+        importCollections: "Import collections",
+        system: "System",
+        sync: "Sync",
+        debug: "Debug",
+        settings: "Settings",
     },
     // === logs ===
     logs: {
@@ -388,6 +518,9 @@ window.app.i18nLocales.en = {
     },
     // === common ===
     common: {
+        create: "Create",
+        cancel: "Cancel",
+        enabled: "Enabled",
         yesNoCancel: "Yes, No, Cancel",
         copied: "Copied",
         copy: "Copy",

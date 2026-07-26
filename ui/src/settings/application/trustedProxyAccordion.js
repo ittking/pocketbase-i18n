@@ -2,8 +2,8 @@ export function trustedProxyAccordion(pageData) {
     const commonProxyHeaders = ["X-Forwarded-For", "Fly-Client-IP", "CF-Connecting-IP"];
 
     const ipOptions = [
-        { label: "Use leftmost IP", value: true },
-        { label: "Use rightmost IP", value: false },
+        { label: () => i18n("settings.useLeftmostIP"), value: true },
+        { label: () => i18n("settings.useRightmostIP"), value: false },
     ];
 
     const proxyInfo = store({
@@ -61,7 +61,7 @@ export function trustedProxyAccordion(pageData) {
         t.summary(
             null,
             t.i({ className: "ri-route-line", ariaHidden: true }),
-            t.span({ className: "txt" }, "IP proxy headers"),
+            t.span({ className: "txt" }, () => i18n("settings.ipProxyHeaders")),
             () => {
                 if (proxyInfo.isLoading) {
                     return t.span({ className: "loader sm" });
@@ -71,7 +71,7 @@ export function trustedProxyAccordion(pageData) {
                     return t.i({
                         className: "ri-alert-line txt-warning",
                         ariaDescription: app.attrs.tooltip(
-                            "Detected proxy header.\nIt is recommend to list it as trusted.",
+                            () => i18n("settings.detectedProxyHeaderRecommend"),
                             "right",
                         ),
                     });
@@ -85,7 +85,7 @@ export function trustedProxyAccordion(pageData) {
                     return t.i({
                         className: "ri-alert-line txt-hint",
                         ariaDescription: app.attrs.tooltip(
-                            "The configured proxy header doesn't match with the detected one.",
+                            () => i18n("settings.detectedProxyHeaderMismatch"),
                             "right",
                         ),
                     });
@@ -94,33 +94,33 @@ export function trustedProxyAccordion(pageData) {
             t.div({ className: "flex-fill" }),
             () => {
                 if (proxyInfo.isEnabled) {
-                    return t.span({ className: "label success" }, "Enabled");
+                    return t.span({ className: "label success" }, () => i18n("settings.enabled"));
                 }
-                return t.span({ className: "label" }, "Disabled");
+                return t.span({ className: "label" }, () => i18n("settings.disabled"));
             },
             () => {
                 if (!app.utils.isEmpty(app.store.errors?.trustedProxy)) {
                     return t.i({
                         className: "ri-error-warning-fill txt-danger",
-                        ariaDescription: app.attrs.tooltip("Has errors", "left"),
+                        ariaDescription: app.attrs.tooltip(() => i18n("settings.hasErrors"), "left"),
                     });
                 }
             },
         ),
         t.p(
             { className: "m-t-0" },
-            "Below you should see your real IP. If not - configure the correct proxy header for your environment.",
+            () => i18n("settings.realIpBelowHint"),
         ),
         t.div(
             { className: "alert info m-b-sm" },
             t.div(
                 { className: "flex gap-5" },
-                t.span(null, "Resolved user IP:"),
+                t.span(null, () => i18n("settings.resolvedUserIp") + ":"),
                 t.strong(null, () => proxyInfo.isLoading ? "..." : (proxyInfo.realIP || "N/A")),
             ),
             t.div(
                 { className: "flex gap-5" },
-                t.span(null, "Detected proxy header:"),
+                t.span(null, () => i18n("settings.detectedProxyHeader") + ":"),
                 t.strong(null, () => proxyInfo.isLoading ? "..." : (proxyInfo.possibleProxyHeader || "N/A")),
             ),
         ),
@@ -128,30 +128,22 @@ export function trustedProxyAccordion(pageData) {
             { className: "content m-b-sm" },
             t.p(
                 null,
-                `
-                When PocketBase is deployed on platforms like Fly or it is accessible through proxies such as
-                NGINX, requests from different users will originate from the same IP address (the IP of the proxy
-                connecting to your PocketBase app).
-            `,
+                () => i18n("settings.proxyDescription"),
             ),
             t.p(
                 null,
-                `
-                In this case to retrieve the actual user IP (used for rate limiting, logging, etc.) you need to
-                properly configure your proxy and list below the trusted headers that PocketBase could use to
-                extract the user IP.
-            `,
+                () => i18n("settings.proxyDescription2"),
             ),
-            t.p({ className: "txt-bold" }, `When using such proxy, to avoid spoofing it is recommended to:`),
+            t.p({ className: "txt-bold" }, () => i18n("settings.proxySpoofingWarning")),
             t.ul(
                 { className: "txt-bold" },
                 t.li(
                     null,
-                    "use headers that are controlled only by the proxy and cannot be manually set by the users",
+                    () => i18n("settings.proxyWarning1"),
                 ),
-                t.li(null, "make sure that the PocketBase server can be accessed ONLY through the proxy"),
+                t.li(null, () => i18n("settings.proxyWarning2")),
             ),
-            t.p(null, "You can clear the headers field if PocketBase is not deployed behind a proxy."),
+            t.p(null, () => i18n("settings.clearProxyHint")),
         ),
         t.div(
             { className: "grid sm" },
@@ -161,12 +153,12 @@ export function trustedProxyAccordion(pageData) {
                     { className: "fields" },
                     t.div(
                         { className: "field" },
-                        t.label({ htmlFor: "trustedProxy.headers" }, "Trusted IP proxy headers"),
+                        t.label({ htmlFor: "trustedProxy.headers" }, () => i18n("settings.trustedIpProxyHeaders")),
                         t.input({
                             type: "text",
                             id: "trustedProxy.headers",
                             name: "trustedProxy.headers",
-                            placeholder: "Leave empty to disable",
+                            placeholder: () => i18n("settings.leaveEmptyToDisable"),
                             value: () => app.utils.joinNonEmpty(pageData.formSettings.trustedProxy.headers),
                             oninput: (e) => {
                                 const newValue = app.utils.splitNonEmpty(e.target.value, ",");
@@ -185,7 +177,7 @@ export function trustedProxyAccordion(pageData) {
                         t.button(
                             {
                                 type: "button",
-                                className: () =>
+                                class: () =>
                                     `btn sm secondary transparent ${
                                         app.utils.isEmpty(pageData.formSettings.trustedProxy.headers) ? "hidden" : ""
                                     }`,
@@ -193,13 +185,13 @@ export function trustedProxyAccordion(pageData) {
                                     pageData.formSettings.trustedProxy.headers = [];
                                 },
                             },
-                            t.span({ className: "txt" }, "Clear"),
+                            t.span({ className: "txt" }, () => i18n("settings.clear")),
                         ),
                     ),
                 ),
                 t.div(
                     { className: "field-help" },
-                    "Comma separated list of headers such as: ",
+                    () => i18n("settings.commaSeparatedHeadersHint"),
                     t.div({ className: "inline-flex gap-5" }, () => {
                         return proxyInfo.suggestedProxyHeaders.map((header) => {
                             return t.div({
@@ -220,11 +212,11 @@ export function trustedProxyAccordion(pageData) {
                     { className: "field" },
                     t.label(
                         { htmlFor: "trustedProxy.useLeftmostIP" },
-                        t.span({ className: "txt" }, "IP priority"),
+                        t.span({ className: "txt" }, () => i18n("settings.ipPriority")),
                         t.i({
                             className: "ri-information-line tooltip-right",
                             ariaDescription: app.attrs.tooltip(
-                                "This is in case the proxy returns more than 1 IP as header value. The rightmost IP is usually considered to be the more trustworthy but this could vary depending on the proxy.",
+                                () => i18n("settings.ipPriorityHint"),
                             ),
                         }),
                     ),

@@ -63,7 +63,7 @@ function backupCreateModal(settings) {
             onbeforeclose: () => {
                 if (data.isSubmitting) {
                     app.toasts.info(
-                        "The backup was started but may take a while to complete. You can come back later.",
+                        () => i18n("settings.backupStartedMayTakeAWhile"),
                     );
                 }
             },
@@ -96,11 +96,11 @@ function backupCreateModal(settings) {
                             { className: "content" },
                             t.p(
                                 null,
-                                `Please note that during the backup other concurrent write requests may fail since the database will be temporary "locked" (this usually happens only during the ZIP generation).`,
+                                () => i18n("settings.backupWarning1"),
                             ),
                             t.p(
                                 { className: "txt-bold" },
-                                `If you are using S3 storage for the collections file upload, you'll have to backup them separately since they are not locally stored and they will not be included in the generated backup!`,
+                                () => i18n("settings.backupWarning2"),
                             ),
                         ),
                     ),
@@ -114,13 +114,13 @@ function backupCreateModal(settings) {
                             id: uniqueId + "_name",
                             name: "name",
                             type: "text",
-                            pattern: "^[a-z0-9_-]+\.zip$",
-                            placeholder: "Leave empty to autogenerate",
+                            pattern: "^[a-z0-9_-]+\\.zip$",
+                            placeholder: () => i18n("settings.backupNameAutogenerate"),
                             value: () => data.name,
                             oninput: (e) => (data.name = e.target.value),
                         }),
                     ),
-                    t.div({ className: "field-help" }, "Must be in the format [a-z0-9_-].zip"),
+                    t.div({ className: "field-help" }, () => i18n("settings.backupNameFormat")),
                 ),
             ),
         ),

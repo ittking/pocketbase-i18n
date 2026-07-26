@@ -11,8 +11,7 @@ export function backupUploadButton(onSuccess = null) {
         }
 
         app.modals.confirm(
-            `Note that we don't perform validations for the uploaded backup files. Proceed with extreme caution and only if you trust the source.\n\n`
-                + `Do you really want to upload "${file.name}"?`,
+            () => i18n("settings.uploadBackupConfirm").replace("{filename}", file.name),
             () => {
                 uploadBackup(file);
             },
@@ -74,7 +73,7 @@ export function backupUploadButton(onSuccess = null) {
         t.button(
             {
                 type: "button",
-                ariaLabel: app.attrs.tooltip("Upload backup"),
+                ariaLabel: app.attrs.tooltip(() => i18n("settings.uploadBackup")),
                 className: () => `btn sm transparent secondary circle ${data.isUploading ? "loading" : ""}`,
                 disabled: () => data.isUploading,
                 onclick: () => fileInput?.click(),
