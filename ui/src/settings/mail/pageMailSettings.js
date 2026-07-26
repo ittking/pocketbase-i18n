@@ -1,16 +1,16 @@
 import { settingsSidebar } from "../settingsSidebar";
 
 export function pageMailSettings(route) {
-    app.store.title = "Mail settings";
+    app.store.title = i18n("settings.mailSettings");
 
     const tlsOptions = [
-        { label: "Auto (StartTLS)", value: false },
-        { label: "Always", value: true },
+        { label: () => i18n("settings.autoStarttls"), value: false },
+        { label: () => i18n("settings.always"), value: true },
     ];
 
     const authMethods = [
-        { label: "PLAIN (default)", value: "PLAIN" },
-        { label: "LOGIN", value: "LOGIN" },
+        { label: () => i18n("settings.plainDefault"), value: "PLAIN" },
+        { label: () => i18n("settings.login"), value: "LOGIN" },
     ];
 
     const data = store({
@@ -54,7 +54,7 @@ export function pageMailSettings(route) {
             const settings = await app.pb.settings.update(redacted);
             init(settings);
 
-            app.toasts.success("Successfully saved mail settings.");
+            app.toasts.success(() => i18n("settings.success"));
         } catch (err) {
             app.checkApiError(err);
         }
@@ -91,8 +91,8 @@ export function pageMailSettings(route) {
                 { className: "page-header" },
                 t.nav(
                     { className: "breadcrumbs" },
-                    t.div({ className: "breadcrumb-item" }, "Settings"),
-                    t.div({ className: "breadcrumb-item" }, () => app.store.title),
+                    t.div({ className: "breadcrumb-item" }, () => i18n("settings.mailSettings")),
+                    t.div({ className: "breadcrumb-item" }, () => i18n("settings.mailSettings")),
                 ),
             ),
             t.div(
@@ -114,13 +114,13 @@ export function pageMailSettings(route) {
                         },
                         t.div(
                             { className: "col-lg-12 txt-lg" },
-                            t.p(null, "Configure common settings for sending emails."),
+                            t.p(null, () => i18n("settings.mailSettingsDescription")),
                         ),
                         t.div(
                             { className: "col-lg-6" },
                             t.div(
                                 { className: "field" },
-                                t.label({ htmlFor: "meta.senderName" }, "Sender name"),
+                                t.label({ htmlFor: "meta.senderName" }, () => i18n("settings.senderName")),
                                 t.input({
                                     id: "meta.senderName",
                                     name: "meta.senderName",
@@ -135,7 +135,7 @@ export function pageMailSettings(route) {
                             { className: "col-lg-6" },
                             t.div(
                                 { className: "field" },
-                                t.label({ htmlFor: "meta.senderAddress" }, "Sender address"),
+                                t.label({ htmlFor: "meta.senderAddress" }, () => i18n("settings.senderAddress")),
                                 t.input({
                                     id: "meta.senderAddress",
                                     name: "meta.senderAddress",
@@ -162,13 +162,13 @@ export function pageMailSettings(route) {
                                     { htmlFor: "smtp.enabled" },
                                     t.span(
                                         { className: "txt" },
-                                        "Use SMTP mail server ",
-                                        t.strong(null, "(recommended)"),
+                                        () => i18n("settings.useSmtpMailServer"),
+                                        t.strong(null, () => i18n("settings.recommended")),
                                     ),
                                     t.i({
                                         className: "ri-information-line link-faded",
                                         ariaDescription: app.attrs.tooltip(
-                                            `By default PocketBase uses the unix "sendmail" command for sending emails. For better emails deliverability it is recommended to use a SMTP mail server.`,
+                                            () => i18n("settings.useSmtpMailServer"),
                                         ),
                                     }),
                                 ),
@@ -182,7 +182,7 @@ export function pageMailSettings(route) {
                                         { className: "col-lg-4" },
                                         t.div(
                                             { className: "field" },
-                                            t.label({ htmlFor: "smtp.host" }, "SMTP server host"),
+                                            t.label({ htmlFor: "smtp.host" }, () => i18n("settings.smtpServerHost")),
                                             t.input({
                                                 id: "smtp.host",
                                                 name: "smtp.host",
@@ -197,7 +197,7 @@ export function pageMailSettings(route) {
                                         { className: "col-lg-2" },
                                         t.div(
                                             { className: "field" },
-                                            t.label({ htmlFor: "smtp.port" }, "Port"),
+                                            t.label({ htmlFor: "smtp.port" }, () => i18n("settings.port")),
                                             t.input({
                                                 id: "smtp.port",
                                                 name: "smtp.port",
@@ -215,7 +215,7 @@ export function pageMailSettings(route) {
                                         { className: "col-lg-3" },
                                         t.div(
                                             { className: "field" },
-                                            t.label({ htmlFor: "smtp.username" }, "Username"),
+                                            t.label({ htmlFor: "smtp.username" }, () => i18n("settings.username")),
                                             t.input({
                                                 id: "smtp.username",
                                                 name: "smtp.username",
@@ -230,7 +230,7 @@ export function pageMailSettings(route) {
                                         { className: "col-lg-3" },
                                         t.div(
                                             { className: "field" },
-                                            t.label({ htmlFor: "smtp.password" }, "Password"),
+                                            t.label({ htmlFor: "smtp.password" }, () => i18n("settings.password")),
                                             t.input({
                                                 id: "smtp.password",
                                                 name: "smtp.password",
@@ -263,7 +263,10 @@ export function pageMailSettings(route) {
                                     },
                                     t.span(
                                         { className: "txt" },
-                                        () => data.showMoreOptions ? "Hide more options" : "Show more options",
+                                        () =>
+                                            data.showMoreOptions
+                                                ? i18n("settings.hideMoreOptions")
+                                                : i18n("settings.showMoreOptions"),
                                     ),
                                     t.i({
                                         className: () =>
@@ -278,7 +281,7 @@ export function pageMailSettings(route) {
                                             { className: "col-lg-3" },
                                             t.div(
                                                 { className: "field" },
-                                                t.label({ htmlFor: "smtp.tls" }, "TLS encryption"),
+                                                t.label({ htmlFor: "smtp.tls" }, () => i18n("settings.tlsEncryption")),
                                                 app.components.select({
                                                     id: "smtp.tls",
                                                     name: "smtp.tls",
@@ -295,7 +298,10 @@ export function pageMailSettings(route) {
                                             { className: "col-lg-3" },
                                             t.div(
                                                 { className: "field" },
-                                                t.label({ htmlFor: "smtp.authMethod" }, "AUTH method"),
+                                                t.label(
+                                                    { htmlFor: "smtp.authMethod" },
+                                                    () => i18n("settings.authMethod"),
+                                                ),
                                                 app.components.select({
                                                     id: "smtp.authMethod",
                                                     name: "smtp.authMethod",
@@ -315,11 +321,11 @@ export function pageMailSettings(route) {
                                                 { className: "field" },
                                                 t.label(
                                                     { htmlFor: "smtp.localName" },
-                                                    t.span({ className: "txt" }, "EHLO/HELO domain"),
+                                                    t.span({ className: "txt" }, () => i18n("settings.ehloDomain")),
                                                     t.i({
                                                         className: "ri-information-line link-hint tooltip-top",
                                                         ariaDescription: app.attrs.tooltip(
-                                                            "Some SMTP servers, such as the Gmail SMTP-relay, requires a proper domain name in the inital EHLO/HELO exchange and will reject attempts to use localhost.",
+                                                            () => i18n("settings.ehloDomain"),
                                                         ),
                                                     }),
                                                 ),
@@ -327,7 +333,7 @@ export function pageMailSettings(route) {
                                                     id: "smtp.localName",
                                                     name: "smtp.localName",
                                                     type: "text",
-                                                    placeholder: "Default to localhost",
+                                                    placeholder: () => i18n("settings.defaultToLocalhost"),
                                                     value: () => data.formSettings.smtp.localName || "",
                                                     oninput: (e) => data.formSettings.smtp.localName = e.target.value,
                                                 }),
@@ -352,7 +358,7 @@ export function pageMailSettings(route) {
                                                     className: "btn transparent secondary",
                                                     onclick: reset,
                                                 },
-                                                t.span({ className: "txt" }, "Cancel"),
+                                                t.span({ className: "txt" }, () => i18n("common.cancel")),
                                             ),
                                             t.button(
                                                 {
@@ -360,7 +366,7 @@ export function pageMailSettings(route) {
                                                         `btn expanded-lg ${data.isSaving ? "loading" : ""}`,
                                                     disabled: () => !data.hasChanges || data.isSaving,
                                                 },
-                                                t.span({ className: "txt" }, "Save changes"),
+                                                t.span({ className: "txt" }, () => i18n("settings.saveChanges")),
                                             ),
                                         ];
                                     }
@@ -372,7 +378,7 @@ export function pageMailSettings(route) {
                                             onclick: () => app.modals.openMailTest(),
                                         },
                                         t.i({ className: "ri-mail-check-line", ariaHidden: true }),
-                                        t.span({ className: "txt" }, "Send test email"),
+                                        t.span({ className: "txt" }, () => i18n("settings.sendTestEmail")),
                                     );
                                 },
                             ),

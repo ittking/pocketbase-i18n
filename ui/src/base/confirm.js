@@ -29,8 +29,8 @@ window.app.modals.confirm = function(textOrElem, yesCallback, noCallback, settin
     data.noCallback = noCallback;
     data.noCallbackWaiting = false;
     data.className = typeof settings.className == "string" ? settings.className : "sm";
-    data.yesButton = settings.yesButton || "Yes";
-    data.noButton = settings.noButton || "No";
+    data.yesButton = settings.yesButton || i18n("common.yes");
+    data.noButton = settings.noButton || i18n("common.no");
 
     if (!confirmElem.isConnected) {
         document.body.appendChild(confirmElem);

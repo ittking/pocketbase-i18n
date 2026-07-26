@@ -39,7 +39,7 @@ export function backupUploadButton(onSuccess = null) {
 
             onSuccess(file);
 
-            app.toasts.success("Successfully uploaded a new backup.");
+            app.toasts.success(() => i18n("common.success"));
         } catch (err) {
             if (!err.isAbort) {
                 data.isUploading = false;

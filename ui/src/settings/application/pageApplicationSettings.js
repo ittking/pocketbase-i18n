@@ -5,7 +5,7 @@ import { superuserAccordion } from "./superuserAccordion";
 import { trustedProxyAccordion } from "./trustedProxyAccordion";
 
 export function pageApplicationSettings() {
-    app.store.title = "Application settings";
+    app.store.title = i18n("settings.applicationSettings");
 
     const data = store({
         isLoading: false,
@@ -63,14 +63,14 @@ export function pageApplicationSettings() {
                 { className: "txt-center" },
                 t.h6(
                     null,
-                    "The ONLY allowed superuser IPs will change to: ",
+                    () => i18n("settings.superuserIpsHint"),
                     t.br(),
                     t.strong(null, superuserIPs.join(", ")),
                 ),
-                t.p(null, "Please make sure that your IP is in the list or you'll be locked."),
+                t.p(null, () => i18n("settings.superuserIpsHint")),
                 t.p(
                     { className: "txt-hint" },
-                    "In case of lockout, you can reset the setting with the ",
+                    () => i18n("settings.superuserIpsHint"),
                     t.a(
                         {
                             href: import.meta.env.PB_SUPERUSER_IPS_RESET_DOCS,
@@ -84,12 +84,12 @@ export function pageApplicationSettings() {
                             t.i({ ariaHidden: true, className: "ri-arrow-right-up-line txt-sm" }),
                         ),
                     ),
-                    " console command.",
+                    () => i18n("settings.superuserIpsHint"),
                 ),
             ),
             () => save(),
             null,
-            { yesButton: "Yes, save changes" },
+            { yesButton: () => i18n("settings.saveChanges") },
         );
     }
 
@@ -118,7 +118,7 @@ export function pageApplicationSettings() {
 
             init(updatedSettings);
 
-            app.toasts.success("Successfully saved application settings.");
+            app.toasts.success(() => i18n("settings.success"));
         } catch (err) {
             app.checkApiError(err);
         }
@@ -168,8 +168,8 @@ export function pageApplicationSettings() {
                 { className: "page-header" },
                 t.nav(
                     { className: "breadcrumbs" },
-                    t.div({ className: "breadcrumb-item" }, "Settings"),
-                    t.div({ className: "breadcrumb-item" }, "Application"),
+                    t.div({ className: "breadcrumb-item" }, () => i18n("settings.applicationSettings")),
+                    t.div({ className: "breadcrumb-item" }, () => i18n("settings.applicationSettings")),
                 ),
             ),
             t.div(
@@ -193,7 +193,7 @@ export function pageApplicationSettings() {
                             { className: "col-md-5" },
                             t.div(
                                 { className: "field" },
-                                t.label({ htmlFor: "meta.appName" }, "Application name"),
+                                t.label({ htmlFor: "meta.appName" }, () => i18n("settings.applicationName")),
                                 t.input({
                                     id: "meta.appName",
                                     name: "meta.appName",
@@ -208,7 +208,7 @@ export function pageApplicationSettings() {
                             { className: "col-md-5" },
                             t.div(
                                 { className: "field" },
-                                t.label({ htmlFor: "meta.appURL" }, "Application URL"),
+                                t.label({ htmlFor: "meta.appURL" }, () => i18n("settings.applicationUrl")),
                                 t.input({
                                     id: "meta.appURL",
                                     name: "meta.appURL",
@@ -249,11 +249,11 @@ export function pageApplicationSettings() {
                                 }),
                                 t.label(
                                     { htmlFor: "meta.hideControls" },
-                                    t.span({ className: "txt" }, "Hide/Lock collection and record controls"),
+                                    t.span({ className: "txt" }, () => i18n("settings.hideControls")),
                                     t.i({
                                         className: "ri-information-line link-hint",
                                         ariaDescription: app.attrs.tooltip(
-                                            "To prevent accidental changes when in production environment, collections create and update buttons will be hidden.\nRecords update will also require an extra unlock step before save.",
+                                            () => i18n("settings.hideControls"),
                                         ),
                                     }),
                                 ),
@@ -273,14 +273,14 @@ export function pageApplicationSettings() {
                                         hidden: () => !data.hasChanges,
                                         onclick: reset,
                                     },
-                                    t.span({ className: "txt" }, "Cancel"),
+                                    t.span({ className: "txt" }, () => i18n("common.cancel")),
                                 ),
                                 t.button(
                                     {
                                         className: () => `btn expanded-lg ${data.isSaving ? "loading" : ""}`,
                                         disabled: () => !data.hasChanges || data.isSaving,
                                     },
-                                    t.span({ className: "txt" }, "Save changes"),
+                                    t.span({ className: "txt" }, () => i18n("settings.saveChanges")),
                                 ),
                             ),
                         ),
@@ -331,7 +331,7 @@ function accentColorField(pageData) {
     return t.div(
         {
             className: "field",
-            ariaDescription: app.attrs.tooltip(() => local.isTooLight ? "Invalid - color is too light" : ""),
+            ariaDescription: app.attrs.tooltip(() => local.isTooLight ? i18n("settings.accentColorInvalid") : ""),
             onunmount: () => {
                 clearTimeout(colorChangeTimeoutId);
                 changeAccentColor(pageData.formSettings.meta.accentColor);
@@ -340,7 +340,7 @@ function accentColorField(pageData) {
         },
         t.label(
             { htmlFor: uniqueId },
-            t.span({ className: "txt" }, "Accent"),
+            t.span({ className: "txt" }, () => i18n("settings.accent")),
             t.i({
                 hidden: () => !local.isTooLight,
                 className: "txt-warning ri-alert-line",

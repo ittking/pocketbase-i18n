@@ -1,5 +1,5 @@
 export function pageSuperuserLogin(route) {
-    app.store.title = "Superuser login";
+    app.store.title = i18n("auth.superuserLogin");
 
     const data = store({
         authMethods: {},
@@ -120,7 +120,7 @@ async function authWithPassword(data) {
         } else if (err.status != 400) {
             app.checkApiError(err);
         } else {
-            app.toasts.error("Invalid login credentials.");
+            app.toasts.error(i18n("auth.invalidOrExpiredToken"));
         }
     }
 
@@ -170,7 +170,7 @@ function authWithPasswordForm(data) {
                 { className: "fields" },
                 t.div(
                     { className: "field" },
-                    t.label({ htmlFor: "login_pass" }, "Password"),
+                    t.label({ htmlFor: "login_pass" }, () => i18n("auth.password")),
                     t.input({
                         id: "login_pass",
                         name: "password",
@@ -187,7 +187,9 @@ function authWithPasswordForm(data) {
                             type: "button",
                             tabIndex: -1,
                             className: "btn sm transparent secondary circle tooltip-right",
-                            ariaLabel: app.attrs.tooltip(() => data.showPassword ? "Hide password" : "Show password"),
+                            ariaLabel: app.attrs.tooltip(() =>
+                                data.showPassword ? i18n("auth.hidePassword") : i18n("auth.showPassword")
+                            ),
                             onclick: () => (data.showPassword = !data.showPassword),
                         },
                         t.i({
@@ -203,7 +205,7 @@ function authWithPasswordForm(data) {
                     className: "link-hint m-t-5",
                     onclick: (e) => e.stopPropagation(),
                 },
-                t.small(null, "Forgotten password"),
+                t.small(null, () => i18n("auth.forgottenPassword")),
             ),
         ),
         t.div(
@@ -213,7 +215,7 @@ function authWithPasswordForm(data) {
                     className: () => `btn lg block next ${data.isPasswordAuthSubmitting ? "loading" : ""}`,
                     disabled: () => data.isPasswordAuthSubmitting,
                 },
-                t.span({ className: "txt" }, () => (data.totalSteps > 1 ? "Next" : "Login")),
+                t.span({ className: "txt" }, () => (data.totalSteps > 1 ? i18n("auth.next") : i18n("auth.login"))),
                 t.i({ className: "ri-arrow-right-line", ariaHidden: true }),
             ),
         ),
@@ -262,7 +264,7 @@ function requestOTPForm(data) {
             { className: "col-12" },
             t.div(
                 { className: "field" },
-                t.label({ htmlFor: "otp_email" }, "Email"),
+                t.label({ htmlFor: "otp_email" }, () => i18n("auth.email")),
                 t.input({
                     id: "otp_email",
                     name: "email",
@@ -282,7 +284,7 @@ function requestOTPForm(data) {
                     disabled: () => data.isOTPRequestSubmitting,
                 },
                 t.i({ className: "ri-mail-send-line", ariaHidden: true }),
-                t.span({ className: "txt" }, "Send OTP"),
+                t.span({ className: "txt" }, () => i18n("auth.sendOtp")),
             ),
         ),
     );
@@ -328,9 +330,9 @@ function authWithOTPForm(data) {
                     { className: "col-12" },
                     t.div(
                         { className: "content txt-center" },
-                        "Check your ",
+                        () => i18n("auth.checkYourInbox") + " ",
                         t.strong(null, data.otpEmail),
-                        " inbox and enter below the received One-time password (OTP).",
+                        ", " + i18n("auth.oneTimePassword") + ".",
                     ),
                 );
             }
@@ -339,7 +341,7 @@ function authWithOTPForm(data) {
             { className: "col-12" },
             t.div(
                 { className: "field" },
-                t.label({ htmlFor: "otp_id" }, "Id"),
+                t.label({ htmlFor: "otp_id" }, () => i18n("auth.id")),
                 t.input({
                     id: "otp_id",
                     name: "otpId",
@@ -360,7 +362,7 @@ function authWithOTPForm(data) {
                 { className: "fields" },
                 t.div(
                     { className: "field" },
-                    t.label({ htmlFor: "otp_password" }, "One-time password"),
+                    t.label({ htmlFor: "otp_password" }, () => i18n("auth.oneTimePassword")),
                     t.input({
                         id: "otp_password",
                         name: "password",
@@ -377,7 +379,9 @@ function authWithOTPForm(data) {
                             type: "button",
                             tabIndex: -1,
                             className: "btn sm transparent secondary circle tooltip-right",
-                            ariaLabel: app.attrs.tooltip(() => data.showPassword ? "Hide password" : "Show password"),
+                            ariaLabel: app.attrs.tooltip(() =>
+                                data.showPassword ? i18n("auth.hidePassword") : i18n("auth.showPassword")
+                            ),
                             onclick: () => (data.showPassword = !data.showPassword),
                         },
                         t.i({
@@ -394,7 +398,7 @@ function authWithOTPForm(data) {
                     className: () => `btn lg block next ${data.isOTPAuthSubmitting ? "loading" : ""}`,
                     disabled: () => data.isOTPAuthSubmitting,
                 },
-                t.span({ className: "txt" }, "Login"),
+                t.span({ className: "txt" }, () => i18n("auth.login")),
                 t.i({ className: "ri-arrow-right-line", ariaHidden: true }),
             ),
             t.div(
@@ -409,7 +413,7 @@ function authWithOTPForm(data) {
                             data.otpPassword = "";
                         },
                     },
-                    "Request another OTP",
+                    () => i18n("auth.requestAnotherOtp"),
                 ),
             ),
         ),

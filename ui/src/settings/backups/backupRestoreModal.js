@@ -65,7 +65,7 @@ function backupRestoreModal(key) {
             { className: "modal-header" },
             t.h5(
                 { className: "m-auto txt-center" },
-                "Restore ",
+                () => i18n("common.reset") + " ",
                 t.strong(null, () => data.key),
             ),
         ),
@@ -165,7 +165,7 @@ function backupRestoreModal(key) {
                     onclick: () => app.modals.close(),
                     disabled: () => data.isSubmitting,
                 },
-                t.span({ className: "txt" }, "Cancel"),
+                t.span({ className: "txt" }, () => i18n("common.cancel")),
             ),
             t.button(
                 {
@@ -174,7 +174,7 @@ function backupRestoreModal(key) {
                     className: () => `btn ${data.isSubmitting ? "loading" : ""}`,
                     disabled: () => data.isSubmitting || !data.canSubmit,
                 },
-                t.span({ className: "txt" }, "Restore backup"),
+                t.span({ className: "txt" }, () => i18n("common.reset")),
             ),
         ),
     );

@@ -90,7 +90,7 @@ export function pageExportCollections(route) {
                 { className: "page-header" },
                 t.nav(
                     { className: "breadcrumbs" },
-                    t.div({ className: "breadcrumb-item" }, "Settings"),
+                    t.div({ className: "breadcrumb-item" }, () => i18n("common.rule")),
                     t.div({ className: "breadcrumb-item" }, () => app.store.title),
                 ),
             ),
@@ -105,7 +105,7 @@ export function pageExportCollections(route) {
                         { className: "col-lg-12" },
                         t.div(
                             { className: "txt-lg" },
-                            "Below you'll find your current collections configuration that you could import in another PocketBase environment.",
+                            () => i18n("common.presentable"),
                         ),
                     ),
                     t.div(
@@ -124,7 +124,10 @@ export function pageExportCollections(route) {
                                             checked: () => data.areAllSelected,
                                             onchange: () => toggleSelectAll(),
                                         }),
-                                        t.label({ htmlFor: uniqueId + ".select_all" }, "Select all"),
+                                        t.label(
+                                            { htmlFor: uniqueId + ".select_all" },
+                                            () => i18n("common.selectCollection"),
+                                        ),
                                     ),
                                 ),
                                 () => {
@@ -202,7 +205,7 @@ export function pageExportCollections(route) {
                         t.button(
                             { className: "btn", onclick: download },
                             t.i({ className: "ri-download-line", ariaHidden: true }),
-                            t.span({ className: "txt" }, "Download as JSON"),
+                            t.span({ className: "txt" }, () => i18n("common.download")),
                         ),
                     ),
                 );

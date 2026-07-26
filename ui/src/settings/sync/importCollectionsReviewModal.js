@@ -116,7 +116,7 @@ function importCollectionsModal(oldCollections, newCollections, settingsArg) {
             await app.pb.collections.import(newCollections, settings.deleteMissing);
             await app.store.loadCollections();
             settings.onsubmit?.(JSON.parse(JSON.stringify(app.store.collections)));
-            app.toasts.success("Successfully imported collections configuration.");
+            app.toasts.success(() => i18n("common.success"));
         } catch (err) {
             app.checkApiError(err);
         }
@@ -143,7 +143,7 @@ function importCollectionsModal(oldCollections, newCollections, settingsArg) {
                 watchers.forEach((w) => w?.unwatch());
             },
         },
-        t.header({ className: "modal-header" }, t.h5(null, "Side-by-side diff")),
+        t.header({ className: "modal-header" }, t.h5(null, () => i18n("common.showDetails"))),
         t.div({ className: "modal-content" }, () => {
             return data.pairs.map((pair) => {
                 return collectionsDiffTable({
@@ -162,7 +162,7 @@ function importCollectionsModal(oldCollections, newCollections, settingsArg) {
                     disabled: () => data.isImporting,
                     onclick: () => app.modals.close(modal),
                 },
-                t.span({ className: "txt" }, "Close"),
+                t.span({ className: "txt" }, () => i18n("common.close")),
             ),
             t.button(
                 {
@@ -171,7 +171,7 @@ function importCollectionsModal(oldCollections, newCollections, settingsArg) {
                     disabled: () => data.isImporting,
                     onclick: () => submitConfirm(),
                 },
-                t.span({ className: "txt" }, "Confirm and import"),
+                t.span({ className: "txt" }, () => i18n("common.saveChanges")),
             ),
         ),
     );

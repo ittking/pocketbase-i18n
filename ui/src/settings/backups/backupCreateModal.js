@@ -44,7 +44,7 @@ function backupCreateModal(settings) {
                 settings.oncreated(data.name);
             }
 
-            app.toasts.success("Successfully generated new backup.");
+            app.toasts.success(() => i18n("common.success"));
 
             app.modals.close(modal);
         } catch (err) {
@@ -74,7 +74,7 @@ function backupCreateModal(settings) {
         },
         t.header(
             { className: "modal-header" },
-            t.h5({ className: "m-auto txt-center" }, "Initialize new backup"),
+            t.h5({ className: "m-auto txt-center" }, () => i18n("common.create")),
         ),
         t.form(
             {
@@ -109,7 +109,7 @@ function backupCreateModal(settings) {
                     { className: "col-lg-12" },
                     t.div(
                         { className: "field" },
-                        t.label({ htmlFor: uniqueId + "_name" }, "Backup name"),
+                        t.label({ htmlFor: uniqueId + "_name" }, () => i18n("common.name")),
                         t.input({
                             id: uniqueId + "_name",
                             name: "name",
@@ -133,7 +133,7 @@ function backupCreateModal(settings) {
                     disabled: () => data.isSubmitting,
                     onclick: () => app.modals.close(modal),
                 },
-                t.span({ className: "txt" }, "Cancel"),
+                t.span({ className: "txt" }, () => i18n("common.cancel")),
             ),
             t.button(
                 {
@@ -142,7 +142,7 @@ function backupCreateModal(settings) {
                     className: () => `btn ${data.isSubmitting ? "loading" : ""}`,
                     disabled: () => data.isSubmitting,
                 },
-                t.span({ className: "txt" }, "Start backup"),
+                t.span({ className: "txt" }, () => i18n("common.create")),
             ),
         ),
     );

@@ -27,10 +27,10 @@ export function otpAccordion(collection) {
         t.summary(
             null,
             t.i({ className: "ri-time-line", ariaHidden: true }),
-            t.span({ className: "txt", textContent: "One-time password (OTP)" }),
+            t.span({ className: "txt", textContent: () => i18n("records.oneTimePassword") }),
             t.span({
                 className: () => `label m-l-auto ${data.config.enabled ? "success" : ""}`,
-                textContent: () => (data.config.enabled ? "Enabled" : "Disabled"),
+                textContent: () => (data.config.enabled ? i18n("records.enabled") : i18n("records.disabled")),
             }),
             () => {
                 if (!app.store.errors?.otp) {
@@ -65,7 +65,7 @@ export function otpAccordion(collection) {
                     }),
                     t.label({
                         htmlFor: uniqueId + ".enabled",
-                        textContent: "Enable",
+                        textContent: () => i18n("records.enabled"),
                     }),
                     () => {
                         if (!data.isSuperusers) {
@@ -87,7 +87,7 @@ export function otpAccordion(collection) {
                     { className: "field" },
                     t.label({
                         htmlFor: uniqueId + ".duration",
-                        textContent: "Duration (in seconds)",
+                        textContent: () => i18n("records.durationSeconds"),
                     }),
                     t.input({
                         type: "number",

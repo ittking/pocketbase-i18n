@@ -205,13 +205,13 @@ window.app.components.fieldSettings = function(data, settingsArg = {}) {
                             const labels = [];
 
                             if (data.field.required) {
-                                labels.push(t.span({ className: "label success" }, "Required"));
+                                labels.push(t.span({ className: "label success" }, () => i18n("common.required")));
                             }
 
                             if (data.field.hidden) {
-                                labels.push(t.span({ className: "label danger" }, "Hidden"));
+                                labels.push(t.span({ className: "label danger" }, () => i18n("common.hidden")));
                             } else if (data.field.presentable) {
-                                labels.push(t.span({ className: "label info" }, "Presentable"));
+                                labels.push(t.span({ className: "label info" }, () => i18n("common.presentable")));
                             }
 
                             return labels;
@@ -234,7 +234,7 @@ window.app.components.fieldSettings = function(data, settingsArg = {}) {
                         );
                         return `btn sm circle transparent secondary ${hasError ? "txt-danger" : ""}`;
                     },
-                    title: "Field options",
+                    title: () => i18n("common.fieldOptions"),
                     hidden: () => data.field[toDeleteProp],
                     onclick: (e) => {
                         const details = e.target.closest("details");
@@ -288,7 +288,7 @@ window.app.components.fieldSettings = function(data, settingsArg = {}) {
                     }),
                     t.label(
                         { htmlFor: uniqueId + ".presentable" },
-                        t.span({ className: "txt" }, "Presentable"),
+                        t.span({ className: "txt" }, () => i18n("common.presentable")),
                         t.i({
                             className: "ri-information-line link-hint",
                             ariaDescription: app.attrs.tooltip(
@@ -322,7 +322,7 @@ window.app.components.fieldSettings = function(data, settingsArg = {}) {
                     }),
                     t.label(
                         { htmlFor: uniqueId + ".hidden" },
-                        t.span({ className: "txt" }, "Hidden"),
+                        t.span({ className: "txt" }, () => i18n("common.hidden")),
                         t.i({
                             className: "ri-information-line link-hint",
                             ariaDescription: app.attrs.tooltip("Hide from the JSON API response and filters."),
@@ -355,7 +355,7 @@ window.app.components.fieldSettings = function(data, settingsArg = {}) {
                         type: "button",
                         className: "dropdown-item",
                         role: "menuitem",
-                        textContent: "Duplicate",
+                        textContent: () => i18n("common.duplicate"),
                         onclick: (e) => {
                             duplicateField();
                             e.target.closest(".dropdown").hidePopover();
@@ -371,7 +371,7 @@ window.app.components.fieldSettings = function(data, settingsArg = {}) {
                         type: "button",
                         className: "dropdown-item",
                         role: "menuitem",
-                        textContent: "Remove",
+                        textContent: () => i18n("common.remove"),
                         onclick: (e) => {
                             removeField();
                             e.target.closest(".dropdown").hidePopover();

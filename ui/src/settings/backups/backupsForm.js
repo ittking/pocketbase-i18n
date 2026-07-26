@@ -55,7 +55,7 @@ export function backupsForm(propsArg = {}) {
 
             init(settings);
 
-            app.toasts.success("Successfully saved backups settings.");
+            app.toasts.success(i18n("common.success"));
         } catch (err) {
             app.checkApiError(err);
         }
@@ -105,7 +105,7 @@ export function backupsForm(propsArg = {}) {
                 disabled: () => data.isLoading || data.hasChanges,
                 onclick: () => (data.showForm = !data.showForm),
             },
-            t.span({ className: "txt" }, "Backup options"),
+            t.span({ className: "txt" }, () => i18n("common.fieldOptions")),
             t.i({
                 className: () => (data.showForm ? "ri-arrow-up-s-line" : "ri-arrow-down-s-line"),
                 ariaHidden: true,
@@ -145,7 +145,7 @@ export function backupsForm(propsArg = {}) {
                                         }
                                     },
                                 }),
-                                t.label({ htmlFor: "enableAutoBackupsToggle" }, "Enable auto backups"),
+                                t.label({ htmlFor: "enableAutoBackupsToggle" }, () => i18n("common.enabled")),
                             ),
                             app.components.slide(
                                 () => data.enableAutoBackups,
@@ -157,7 +157,7 @@ export function backupsForm(propsArg = {}) {
                                             { className: "fields" },
                                             t.div(
                                                 { className: "field" },
-                                                t.label({ htmlFor: "backups.cron" }, "Cron expression"),
+                                                t.label({ htmlFor: "backups.cron" }, () => i18n("common.rule")),
                                                 t.input({
                                                     id: "backups.cron",
                                                     name: "backups.cron",
@@ -177,7 +177,7 @@ export function backupsForm(propsArg = {}) {
                                                         className: "btn outline sm",
                                                         "html-popovertarget": "cron-presets-dropdown",
                                                     },
-                                                    t.span({ className: "txt" }, "Presets"),
+                                                    t.span({ className: "txt" }, () => i18n("common.presentable")),
                                                     t.i({ className: "ri-arrow-drop-down-line", ariaHidden: true }),
                                                 ),
                                                 t.div(
@@ -228,7 +228,7 @@ export function backupsForm(propsArg = {}) {
                                         { className: "col-lg-6" },
                                         t.div(
                                             { className: "field" },
-                                            t.label({ htmlFor: "backups.cronMaxKeep" }, "Max @auto backups to keep"),
+                                            t.label({ htmlFor: "backups.cronMaxKeep" }, () => i18n("common.hidden")),
                                             t.input({
                                                 id: "backups.cronMaxKeep",
                                                 name: "backups.cronMaxKeep",
@@ -269,14 +269,14 @@ export function backupsForm(propsArg = {}) {
                                         className: "btn transparent secondary",
                                         onclick: reset,
                                     },
-                                    t.span({ className: "txt" }, "Cancel"),
+                                    t.span({ className: "txt" }, () => i18n("common.cancel")),
                                 ),
                                 t.button(
                                     {
                                         className: () => `btn expanded-lg ${data.isSaving ? "loading" : ""}`,
                                         disabled: () => !data.hasChanges || data.isSaving,
                                     },
-                                    t.span({ className: "txt" }, "Save changes"),
+                                    t.span({ className: "txt" }, () => i18n("common.saveChanges")),
                                 ),
                             ),
                         ),

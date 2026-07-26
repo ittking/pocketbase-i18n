@@ -359,9 +359,15 @@ function recordUpsertModal(collection, rawRecord, modalSettings) {
 
             let msg;
             if (isNew) {
-                msg = `Successfully created ${collection.name} "${record.id}".`;
+                msg = i18n("records.successfullyCreated").replace("{collection}", collection.name).replace(
+                    "{id}",
+                    record.id,
+                );
             } else {
-                msg = `Successfully updated ${collection.name} "${record.id}".`;
+                msg = i18n("records.successfullyUpdated").replace("{collection}", collection.name).replace(
+                    "{id}",
+                    record.id,
+                );
             }
             app.toasts.success(msg, { key: "recordSave" });
 

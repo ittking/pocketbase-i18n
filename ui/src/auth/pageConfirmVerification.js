@@ -5,12 +5,12 @@ export function pageConfirmVerification(route) {
     const tokenPayload = getTokenPayload(token);
 
     if (!tokenPayload.email || !tokenPayload.collectionId) {
-        app.toasts.error("Invalid or expired verification token.");
+        app.toasts.error(i18n("auth.invalidOrExpiredToken"));
         window.location.hash = "#/";
         return;
     }
 
-    app.store.title = "Confirm verification";
+    app.store.title = i18n("auth.confirmVerification");
 
     const data = store({
         isConfirming: false,
@@ -75,27 +75,30 @@ export function pageConfirmVerification(route) {
         ),
         () => {
             if (data.isConfirming) {
-                return t.div({ className: "block txt-center" }, t.span({ className: "loader" }, "Please wait..."));
+                return t.div(
+                    { className: "block txt-center" },
+                    t.span({ className: "loader" }, () => i18n("auth.pleaseCheckEmail")),
+                );
             }
 
             if (data.isConfirmSuccess) {
                 return t.div(
                     { pbEvent: "confirmVerificationSuccessAlert", className: "alert success txt-center" },
-                    t.p(null, "Successfully verified ", t.strong(null, tokenPayload.email), "."),
+                    t.p(null, () => i18n("auth.successfullyVerified") + " ", t.strong(null, tokenPayload.email), "."),
                 );
             }
 
             if (data.isResendSuccess) {
                 return t.div(
                     { pbEvent: "confirmVerificationResendAlert", className: "alert success txt-center" },
-                    t.p(null, "Please check your email for the new verification link."),
+                    t.p(null, () => i18n("auth.pleaseCheckEmail")),
                 );
             }
 
             return [
                 t.div(
                     { pbEvent: "confirmVerificationErrorAlert", className: "alert danger txt-center m-b-base" },
-                    t.p(null, "Invalid or expired verification token."),
+                    t.p(null, () => i18n("auth.invalidOrExpiredToken")),
                 ),
                 t.button(
                     {
@@ -104,7 +107,7 @@ export function pageConfirmVerification(route) {
                         disabled: () => data.isResending,
                         onclick: () => resend(),
                     },
-                    t.span({ className: "txt" }, "Resend"),
+                    t.span({ className: "txt" }, () => i18n("auth.resend")),
                 ),
             ];
         },

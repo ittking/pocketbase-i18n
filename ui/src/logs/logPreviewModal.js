@@ -41,7 +41,7 @@ function downloadJSON(log) {
 
 function copyJSON(log) {
     app.utils.copyToClipboard(JSON.stringify(log, null, 2));
-    app.toasts.success("Log copied to clipboard!");
+    app.toasts.success(i18n("logs.copyJson") + " " + i18n("common.copied"));
 }
 
 function logPreviewModal(logIdOrModel, settings) {
@@ -116,11 +116,11 @@ function logPreviewModal(logIdOrModel, settings) {
         },
         t.header(
             { className: "modal-header" },
-            t.h5(null, "Log details"),
+            t.h5(null, () => i18n("logs.logDetails")),
             t.button(
                 {
                     className: "btn sm circle transparent m-l-auto",
-                    title: "More options",
+                    title: () => i18n("logs.moreOptions"),
                     "html-popovertarget": "log-meta-dropdown",
                 },
                 t.i({ className: "ri-more-line", ariaHidden: true }),
@@ -135,7 +135,7 @@ function logPreviewModal(logIdOrModel, settings) {
                         },
                     },
                     t.i({ className: "ri-braces-line", ariaHidden: true }),
-                    t.span({ className: "txt" }, "Copy JSON"),
+                    t.span({ className: "txt" }, () => i18n("logs.copyJson")),
                 );
             }),
         ),
@@ -213,7 +213,7 @@ function logPreviewModal(logIdOrModel, settings) {
                                         if (isEmpty) {
                                             return t.span({
                                                 className: "txt txt-hint",
-                                                textContent: "N/A",
+                                                textContent: () => i18n("logs.na"),
                                             });
                                         }
 
@@ -259,7 +259,7 @@ function logPreviewModal(logIdOrModel, settings) {
                     className: "btn transparent m-r-auto",
                     onclick: () => app.modals.close(modal),
                 },
-                t.span({ className: "txt" }, "Close"),
+                t.span({ className: "txt" }, () => i18n("common.close")),
             ),
             t.button(
                 {
@@ -268,7 +268,7 @@ function logPreviewModal(logIdOrModel, settings) {
                     onclick: () => downloadJSON(data.log),
                 },
                 t.i({ className: "ri-download-line", ariaHidden: true }),
-                t.span({ className: "txt" }, "Download JSON"),
+                t.span({ className: "txt" }, () => i18n("logs.downloadJson")),
             ),
         ),
     );

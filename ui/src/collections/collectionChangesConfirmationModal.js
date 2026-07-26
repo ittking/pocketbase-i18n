@@ -344,7 +344,7 @@ window.app.modals.openCollectionChangesConfirmation = async function(
         noCallback,
         {
             className: "collection-changes-confirm-modal",
-            yesButton: "Yes, save changes",
+            yesButton: i18n("common.saveChanges"),
         },
     );
 };

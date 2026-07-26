@@ -5,12 +5,12 @@ export function pageInstaller(route) {
     const tokenPayload = getTokenPayload(token);
 
     if (tokenPayload.type != "auth" || isTokenExpired(token)) {
-        app.toasts.error("The installer token is invalid or has expired.");
+        app.toasts.error(i18n("auth.invalidOrExpiredToken"));
         window.location.hash = "#/";
         return;
     }
 
-    app.store.title = "Setup your PocketBase instance";
+    app.store.title = i18n("auth.setupPocketBase");
 
     const data = store({
         email: "",
@@ -102,7 +102,7 @@ export function pageInstaller(route) {
                 headers: { Authorization: token },
             });
 
-            app.toasts.info("Please wait while extracting the uploaded archive!");
+            app.toasts.info(i18n("auth.pleaseCheckEmail"));
 
             // optimistic restore completion
             await new Promise((r) => setTimeout(r, 3000));
@@ -136,12 +136,12 @@ export function pageInstaller(route) {
                     submit(data);
                 },
             },
-            t.div({ className: "col-12 txt-center" }, "Create your first superuser account in order to continue:"),
+            t.div({ className: "col-12 txt-center" }, () => i18n("auth.createFirstSuperuser") + ":"),
             t.div(
                 { className: "col-12" },
                 t.div(
                     { className: "field" },
-                    t.label({ htmlFor: "superuser_email" }, "Email"),
+                    t.label({ htmlFor: "superuser_email" }, () => i18n("auth.email")),
                     t.input({
                         id: "superuser_email",
                         name: "email",
@@ -161,7 +161,7 @@ export function pageInstaller(route) {
                     { className: "fields" },
                     t.div(
                         { className: "field" },
-                        t.label({ htmlFor: "superuser_password" }, "Password"),
+                        t.label({ htmlFor: "superuser_password" }, () => i18n("auth.password")),
                         t.input({
                             id: "superuser_password",
                             name: "password",
@@ -181,7 +181,7 @@ export function pageInstaller(route) {
                                 tabIndex: -1,
                                 className: "btn sm transparent secondary circle tooltip-right",
                                 ariaLabel: app.attrs.tooltip(() =>
-                                    data.showPassword ? "Hide password" : "Show password"
+                                    data.showPassword ? i18n("auth.hidePassword") : i18n("auth.showPassword")
                                 ),
                                 onclick: () => (data.showPassword = !data.showPassword),
                             },
@@ -192,7 +192,7 @@ export function pageInstaller(route) {
                         ),
                     ),
                 ),
-                t.div({ className: "field-help" }, "Recommended at least 10 characters."),
+                t.div({ className: "field-help" }, () => i18n("auth.password") + " (10+ characters)"),
             ),
             t.div(
                 { className: "col-12" },
@@ -200,7 +200,7 @@ export function pageInstaller(route) {
                     { className: "fields" },
                     t.div(
                         { className: "field" },
-                        t.label({ htmlFor: "superuser_password_confirm" }, "Password confirm"),
+                        t.label({ htmlFor: "superuser_password_confirm" }, () => i18n("auth.passwordConfirm")),
                         t.input({
                             id: "superuser_password_confirm",
                             name: "passwordConfirm",
@@ -219,7 +219,7 @@ export function pageInstaller(route) {
                                 tabIndex: -1,
                                 className: "btn sm transparent secondary circle tooltip-right",
                                 ariaLabel: app.attrs.tooltip(() =>
-                                    data.showPasswordConfirm ? "Hide password" : "Show password"
+                                    data.showPasswordConfirm ? i18n("auth.hidePassword") : i18n("auth.showPassword")
                                 ),
                                 onclick: () => (data.showPasswordConfirm = !data.showPasswordConfirm),
                             },
@@ -238,7 +238,7 @@ export function pageInstaller(route) {
                         className: () => `btn lg next block ${data.isSubmitting ? "loading" : ""}`,
                         disabled: () => data.isBusy,
                     },
-                    t.span({ className: "txt" }, "Create superuser and login"),
+                    t.span({ className: "txt" }, () => i18n("auth.createSuperuserAndLogin")),
                     t.i({ className: "ri-arrow-right-line", ariaHidden: true }),
                 ),
             ),
@@ -253,7 +253,7 @@ export function pageInstaller(route) {
                     }`,
             },
             t.i({ className: "ri-upload-cloud-line", ariaHidden: true }),
-            t.span({ className: "txt" }, "Or initialize from backup"),
+            t.span({ className: "txt" }, () => i18n("auth.orInitializeFromBackup")),
         ),
         t.input({
             id: fileInputId,

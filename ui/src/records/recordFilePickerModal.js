@@ -4,7 +4,7 @@ window.app.modals = window.app.modals || {};
 const recordsPerPage = 100;
 
 const defaultSettings = {
-    btnText: "Insert",
+    btnText: () => i18n("common.insert"),
     fileTypes: [], // "image", "document", "video", "audio", "file"
     onselect: function(selectedFile) {},
 };
@@ -247,7 +247,7 @@ function recordFilePickerModal(settings = defaultSettings) {
                 },
                 t.span(
                     { className: "txt-lg collection-name m-r-auto" },
-                    () => data.activeCollection?.name || "Select collection",
+                    () => data.activeCollection?.name || i18n("records.selectCollection"),
                 ),
                 t.i({ className: "ri-arrow-drop-down-line", ariaHidden: true }),
             ),
@@ -347,7 +347,7 @@ function recordFilePickerModal(settings = defaultSettings) {
                         disabled: () => data.isLoadingRecords,
                         onclick: () => loadRecords(),
                     },
-                    t.span({ className: "txt" }, "Load more"),
+                    t.span({ className: "txt" }, () => i18n("common.loading")),
                 ),
             ),
             // no files
@@ -358,14 +358,14 @@ function recordFilePickerModal(settings = defaultSettings) {
                 },
                 () => {
                     if (app.utils.isEmpty(settings.fileTypes)) {
-                        return t.p(null, "No records with selectable files found.");
+                        return t.p(null, () => i18n("records.noRecordsSelectable"));
                     }
-                    return t.p(null, `No "${settings.fileTypes.join("\", \"")}" files found.`);
+                    return t.p(null, () => `No "${settings.fileTypes.join("\", \"")}" files found.`);
                 },
                 t.button({
                     type: "button",
                     className: "btn sm secondary",
-                    textContent: "Clear search",
+                    textContent: () => i18n("records.clearSearch"),
                     hidden: () => !data.searchTerm?.length,
                     onclick: () => {
                         data.searchTerm = "";
@@ -381,7 +381,7 @@ function recordFilePickerModal(settings = defaultSettings) {
                     className: "btn transparent m-r-auto",
                     onclick: () => app.modals.close(modal),
                 },
-                t.span({ className: "txt" }, "Close"),
+                t.span({ className: "txt" }, () => i18n("common.close")),
             ),
             // image thumb selector
             () => {
@@ -390,8 +390,8 @@ function recordFilePickerModal(settings = defaultSettings) {
                 }
 
                 const options = [
-                    { value: "", label: "Original size" },
-                    { value: "100x100", label: "100x100 thumb" },
+                    { value: "", label: () => i18n("records.originalSize") },
+                    { value: "100x100", label: () => i18n("records.thumb100x100") },
                 ];
 
                 // find the related field and its thumbs
@@ -402,7 +402,7 @@ function recordFilePickerModal(settings = defaultSettings) {
                 for (let thumb of thumbs) {
                     options.push({
                         value: thumb,
-                        label: `${thumb} thumb`,
+                        label: () => `${thumb} thumb`,
                     });
                 }
 

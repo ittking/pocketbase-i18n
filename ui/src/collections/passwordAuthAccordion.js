@@ -46,10 +46,10 @@ export function passwordAuthAccordion(collection) {
         t.summary(
             null,
             t.i({ className: "ri-lock-password-line", ariaHidden: true }),
-            t.span({ className: "txt", textContent: "Identity/Password" }),
+            t.span({ className: "txt", textContent: () => i18n("records.identityPassword") }),
             t.span({
                 className: () => `label m-l-auto ${data.config.enabled ? "success" : ""}`,
-                textContent: () => (data.config.enabled ? "Enabled" : "Disabled"),
+                textContent: () => (data.config.enabled ? i18n("records.enabled") : i18n("records.disabled")),
             }),
             () => {
                 if (!app.store.errors?.passwordAuth) {
@@ -78,7 +78,7 @@ export function passwordAuthAccordion(collection) {
                     }),
                     t.label({
                         htmlFor: uniqueId + ".enabled",
-                        textContent: "Enable",
+                        textContent: () => i18n("records.enabled"),
                     }),
                 ),
             ),
@@ -88,7 +88,7 @@ export function passwordAuthAccordion(collection) {
                     { className: "field" },
                     t.label({
                         htmlFor: uniqueId + ".identityFields",
-                        textContent: "Identity fields",
+                        textContent: () => i18n("records.identityPassword"),
                     }),
                     app.components.select({
                         id: uniqueId + ".identityFields",

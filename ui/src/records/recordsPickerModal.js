@@ -10,7 +10,7 @@ const defaultSettings = {
     collection: "", // model, id or name
     selectedIds: [],
     maxSelect: 1,
-    btnText: "Set selection",
+    btnText: () => i18n("records.setSelection"),
     onselect: function(records) {},
 };
 
@@ -371,11 +371,11 @@ function recordsPickerModal(settings = defaultSettings) {
                     },
                     t.div(
                         { className: "content txt-hint" },
-                        t.span({ className: "txt" }, "No records found."),
+                        t.span({ className: "txt" }, () => i18n("records.noRecordsSelectable")),
                         t.button({
                             type: "button",
                             className: "btn sm secondary",
-                            textContent: "Clear search",
+                            textContent: () => i18n("records.clearSearch"),
                             hidden: () => !data.searchTerm.trim().length,
                             onclick: () => {
                                 data.searchTerm = "";
@@ -423,7 +423,7 @@ function recordsPickerModal(settings = defaultSettings) {
                     className: "btn transparent m-r-auto",
                     onclick: () => close(),
                 },
-                t.span({ className: "txt" }, "Close"),
+                t.span({ className: "txt" }, () => i18n("common.close")),
             ),
             // image thumb selector
             () => {
@@ -432,8 +432,8 @@ function recordsPickerModal(settings = defaultSettings) {
                 }
 
                 const options = [
-                    { value: "", label: "Original size" },
-                    { value: "100x100", label: "100x100 thumb" },
+                    { value: "", label: () => i18n("records.originalSize") },
+                    { value: "100x100", label: () => i18n("records.thumb100x100") },
                 ];
 
                 // find the related field and its thumbs
@@ -444,7 +444,7 @@ function recordsPickerModal(settings = defaultSettings) {
                 for (let thumb of thumbs) {
                     options.push({
                         value: thumb,
-                        label: `${thumb} thumb`,
+                        label: () => `${thumb} thumb`,
                     });
                 }
 

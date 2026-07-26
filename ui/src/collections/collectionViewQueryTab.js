@@ -91,7 +91,7 @@ export function collectionViewQueryTab(upsertData) {
                             className: "txt-bold link-hint",
                             "html-popovertarget": uniqueId + "caveats_dropdown",
                         },
-                        () => "Query caveats",
+                        () => i18n("records.queryCaveats"),
                     ),
                 ),
                 t.div(
@@ -135,7 +135,7 @@ export function collectionViewQueryTab(upsertData) {
                     { className: "field" },
                     t.label(
                         { htmlFor: uniqueId + ".viewQuery" },
-                        t.span({ className: "txt" }, "Select query"),
+                        t.span({ className: "txt" }, () => i18n("records.selectQuery")),
                         t.span(
                             {
                                 hidden: () => !local.testError,
@@ -171,7 +171,7 @@ export function collectionViewQueryTab(upsertData) {
                 { className: "col-12" },
                 t.p(
                     { className: "txt-sm txt-bold" },
-                    "Sample output:",
+                    () => i18n("records.sampleOutput"),
                 ),
                 t.div(
                     { className: "view-query-sample-wrapper" },

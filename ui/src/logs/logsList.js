@@ -253,7 +253,7 @@ export function logsList(logsSettings) {
                         t.div(
                             { className: "inline-flex gap-5" },
                             t.i({ className: "ri-bookmark-line", ariaHidden: true }),
-                            t.span({ textContent: "Level" }),
+                            t.span({ textContent: () => i18n("logs.level") }),
                             t.i({
                                 className: "ri-information-line txt-sm link-hint",
                                 ariaDescription: app.attrs.tooltip(
@@ -269,7 +269,7 @@ export function logsList(logsSettings) {
                         t.div(
                             { className: "inline-flex gap-5" },
                             t.i({ className: "ri-file-list-2-line", ariaHidden: true }),
-                            t.span({ textContent: "Message" }),
+                            t.span({ textContent: () => i18n("logs.message") }),
                         ),
                     ),
                     t.th(
@@ -277,7 +277,7 @@ export function logsList(logsSettings) {
                         t.div(
                             { className: "inline-flex gap-5" },
                             t.i({ className: "ri-calendar-line", ariaHidden: true }),
-                            t.span({ textContent: "Created" }),
+                            t.span({ textContent: () => i18n("logs.created") }),
                         ),
                     ),
                     t.th({ className: "col-meta" }),
@@ -298,7 +298,7 @@ export function logsList(logsSettings) {
 
                                     return t.div(
                                         { className: "sticky-content txt-center txt-hint" },
-                                        t.div({ className: "txt-bold" }, "No logs found."),
+                                        t.div({ className: "txt-bold" }, () => i18n("logs.noLogsFound")),
                                         t.button(
                                             {
                                                 hidden: () =>
@@ -309,7 +309,7 @@ export function logsList(logsSettings) {
                                                     logsSettings.zoom = {};
                                                 },
                                             },
-                                            t.span({ className: "txt" }, "Reset zoom"),
+                                            t.span({ className: "txt" }, () => i18n("logs.resetZoom")),
                                         ),
                                         t.button(
                                             {
@@ -320,7 +320,7 @@ export function logsList(logsSettings) {
                                                     logsSettings.filter = "";
                                                 },
                                             },
-                                            t.span({ className: "txt" }, "Clear search"),
+                                            t.span({ className: "txt" }, () => i18n("logs.clearSearch")),
                                         ),
                                     );
                                 },
@@ -465,7 +465,7 @@ export function logsList(logsSettings) {
                                 disabled: () => logsSettings.isListLoading,
                                 onclick: () => load(),
                             },
-                            t.span({ className: "txt" }, "Load older"),
+                            t.span({ className: "txt" }, () => i18n("logs.loadOlder")),
                         ),
                     ),
                 ),
@@ -480,9 +480,9 @@ export function logsList(logsSettings) {
                 },
                 t.span(
                     { className: "txt" },
-                    "Selected ",
+                    () => i18n("logs.selected") + " ",
                     t.strong(null, () => data.totalSelected),
-                    () => ` ${data.totalSelected == 1 ? "log" : "logs"}`,
+                    () => ` ${data.totalSelected == 1 ? i18n("logs.log") : i18n("logs.logs")}`,
                 ),
                 t.button(
                     {
@@ -490,7 +490,7 @@ export function logsList(logsSettings) {
                         className: "btn sm secondary pill m-r-auto",
                         onclick: () => selectAll(false),
                     },
-                    t.span({ className: "txt" }, "Reset"),
+                    t.span({ className: "txt" }, () => i18n("common.reset")),
                 ),
                 t.button(
                     {
@@ -499,7 +499,7 @@ export function logsList(logsSettings) {
                         onclick: () => downloadSelected(),
                     },
                     t.i({ className: "ri-download-line", ariaHidden: true }),
-                    t.span({ className: "txt" }, "JSON"),
+                    t.span({ className: "txt" }, () => i18n("common.json")),
                 ),
             ),
         ),

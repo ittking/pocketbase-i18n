@@ -16,7 +16,7 @@ export function collectionAuthOptionsTab(upsertData) {
                 { className: "col-12" },
                 t.div(
                     { className: "section-heading" },
-                    t.strong(null, "Auth methods"),
+                    t.strong(null, i18n("common.rule")),
                     t.div({ className: "flex-fill" }),
                     t.div(
                         { className: "field" },
@@ -49,7 +49,7 @@ export function collectionAuthOptionsTab(upsertData) {
                 { className: "col-12" },
                 t.div(
                     { className: "section-heading" },
-                    t.strong(null, "Mail templates"),
+                    t.strong(null, i18n("common.rule")),
                     t.button({
                         tabIndex: -1,
                         type: "buttton",

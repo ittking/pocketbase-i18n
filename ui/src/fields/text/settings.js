@@ -18,7 +18,7 @@ export function settings(props) {
                         { className: "field" },
                         t.label(
                             { htmlFor: uniqueId + ".min" },
-                            t.span({ className: "txt" }, "Min length"),
+                            t.span({ className: "txt" }, () => i18n("fields.min")),
                             t.i({
                                 className: "ri-information-line link-hint",
                                 ariaDescription: app.attrs.tooltip("Clear the field or set it to 0 for no limit."),
@@ -31,7 +31,7 @@ export function settings(props) {
                             step: 1,
                             min: 0,
                             max: Number.MAX_SAFE_INTEGER,
-                            placeholder: "No min limit",
+                            placeholder: () => i18n("fields.noMinLimit"),
                             value: () => props.field.min || "",
                             oninput: (e) => {
                                 // temp skip invalid numbers with leading 0 while typing to avoid reseting the entire input
@@ -55,7 +55,7 @@ export function settings(props) {
                         { className: "field" },
                         t.label(
                             { htmlFor: uniqueId + ".max" },
-                            t.span({ className: "txt" }, "Max length"),
+                            t.span({ className: "txt" }, () => i18n("fields.max")),
                             t.i({
                                 className: "ri-information-line link-hint",
                                 ariaDescription: app.attrs.tooltip(
@@ -70,7 +70,7 @@ export function settings(props) {
                             step: 1,
                             min: () => props.field.min || 0,
                             max: Number.MAX_SAFE_INTEGER,
-                            placeholder: "Default to max 5000 characters",
+                            placeholder: () => i18n("fields.defaultToMaxChars"),
                             value: () => props.field.max || "",
                             oninput: (e) => {
                                 // temp skip invalid numbers with leading 0 while typing to avoid reseting the entire input
@@ -94,7 +94,7 @@ export function settings(props) {
                         { className: "field" },
                         t.label(
                             { htmlFor: uniqueId + ".pattern" },
-                            t.span({ className: "txt" }, "Validation pattern"),
+                            t.span({ className: "txt" }, () => i18n("fields.pattern")),
                             () => {
                                 if (props.field.primaryKey) {
                                     return t.i({
@@ -122,7 +122,7 @@ export function settings(props) {
                         { className: "field" },
                         t.label(
                             { htmlFor: uniqueId + ".autogeneratePattern" },
-                            t.span({ className: "txt" }, "Autogenerate pattern"),
+                            t.span({ className: "txt" }, () => i18n("fields.autogeneratePattern")),
                             t.i({
                                 className: "ri-information-line link-hint",
                                 ariaDescription: app.attrs.tooltip(
@@ -144,7 +144,7 @@ export function settings(props) {
                     { className: "col-sm-12" },
                     t.div(
                         { className: "field" },
-                        t.label({ htmlFor: uniqueId + ".help" }, "Help text"),
+                        t.label({ htmlFor: uniqueId + ".help" }, () => i18n("fields.helpText")),
                         t.input({
                             type: "text",
                             id: uniqueId + ".help",
@@ -168,7 +168,7 @@ export function settings(props) {
                 }),
                 t.label(
                     { htmlFor: uniqueId + ".required" },
-                    t.span({ className: "txt" }, "Required"),
+                    t.span({ className: "txt" }, () => i18n("fields.required")),
                     t.small({ className: "txt-hint" }, "(!='')"),
                     t.i({
                         className: "ri-information-line link-hint",

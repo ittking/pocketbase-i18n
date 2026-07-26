@@ -74,7 +74,7 @@ export function collectionFieldsTab(upsertData) {
                         onclick: () => app.modals.openIndexUpsert(upsertData.collection),
                     },
                     t.i({ className: "ri-add-line", ariaHidden: true }),
-                    t.span({ className: "txt" }, "New index"),
+                    t.span({ className: "txt" }, i18n("records.newRecord")),
                 );
             },
         }),

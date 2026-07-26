@@ -58,7 +58,7 @@ export function backupsList(propsArg = {}) {
         try {
             await app.pb.backups.delete(key);
             loadBackups();
-            app.toasts.success(`Successfully deleted ${key}.`);
+            app.toasts.success(() => i18n("common.remove") + ` ${key}.`);
         } catch (err) {
             app.checkApiError(err);
         }
@@ -130,7 +130,7 @@ export function backupsList(propsArg = {}) {
                     hidden: () => data.isLoading || data.backups.length,
                     className: () => "list-item",
                 },
-                t.div({ className: "content block txt-hint" }, "No backups found."),
+                t.div({ className: "content block txt-hint" }, () => i18n("common.noItemsFound")),
             ),
             () => {
                 return data.backups.map((backup) => {
@@ -214,13 +214,13 @@ export function backupsList(propsArg = {}) {
                     if (data.canBackup) {
                         return [
                             t.i({ className: "ri-play-circle-line", ariaHidden: true }),
-                            t.span({ className: "txt" }, "Initialize new backup"),
+                            t.span({ className: "txt" }, () => i18n("common.create")),
                         ];
                     }
 
                     return [
                         t.span({ className: "loader sm" }),
-                        t.span({ className: "txt" }, "Backup/restore operation is in process"),
+                        t.span({ className: "txt" }, () => i18n("common.loading")),
                     ];
                 },
             ),

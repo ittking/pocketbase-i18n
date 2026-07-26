@@ -1,5 +1,5 @@
 export function pageRequestSuperuserPasswordReset(route) {
-    app.store.title = "Forgotten superuser password";
+    app.store.title = i18n("auth.forgottenSuperuserPassword");
 
     const data = store({
         email: "",
@@ -38,7 +38,7 @@ export function pageRequestSuperuserPasswordReset(route) {
             if (data.success) {
                 return t.div(
                     { pbEvent: "superuserPasswordResetAlert", className: "alert success txt-center" },
-                    t.p(null, "Check ", t.strong(null, data.email), " for the recovery link!"),
+                    t.p(null, () => i18n("auth.enterEmailAssociated"), " ", t.strong(null, data.email), "!"),
                 );
             }
 
@@ -55,11 +55,11 @@ export function pageRequestSuperuserPasswordReset(route) {
                     { className: "col-12" },
                     t.div(
                         { className: "content txt-center m-b-sm" },
-                        t.p(null, "Enter the email associated with your account and we'll send you a recovery link:"),
+                        t.p(null, () => i18n("auth.enterEmailAssociated") + ":"),
                     ),
                     t.div(
                         { className: "field" },
-                        t.label({ htmlFor: "password_reset_email" }, "Email"),
+                        t.label({ htmlFor: "password_reset_email" }, () => i18n("auth.email")),
                         t.input({
                             id: "password_reset_email",
                             name: "email",
@@ -79,14 +79,14 @@ export function pageRequestSuperuserPasswordReset(route) {
                             disabled: () => data.isSubmitting,
                         },
                         t.i({ className: "ri-mail-send-line", ariaHidden: true }),
-                        t.span({ className: "txt" }, "Send recovery link"),
+                        t.span({ className: "txt" }, () => i18n("auth.sendRecoveryLink")),
                     ),
                 ),
             );
         },
         t.div(
             { className: "block m-t-sm txt-center" },
-            t.a({ href: "#/login", className: "link-hint" }, "Back to login"),
+            t.a({ href: "#/login", className: "link-hint" }, () => i18n("auth.backToLogin")),
         ),
     );
 }

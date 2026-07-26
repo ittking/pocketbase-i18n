@@ -297,7 +297,7 @@ export function pageImportCollections(route) {
                 { className: "page-header" },
                 t.nav(
                     { className: "breadcrumbs" },
-                    t.div({ className: "breadcrumb-item" }, "Settings"),
+                    t.div({ className: "breadcrumb-item" }, () => i18n("common.rule")),
                     t.div({ className: "breadcrumb-item" }, () => app.store.title),
                 ),
             ),
@@ -312,14 +312,14 @@ export function pageImportCollections(route) {
                         { className: "col-lg-12" },
                         t.span(
                             { className: "txt-lg m-r-5" },
-                            "Paste below the collections configuration you want to import or",
+                            () => i18n("common.insert"),
                         ),
                         t.label(
                             {
                                 htmlFor: fileInput.id,
                                 className: () => `btn sm outline ${data.isLoadingFile ? "loading" : ""}`,
                             },
-                            t.span({ className: "txt" }, "Load from JSON file"),
+                            t.span({ className: "txt" }, () => i18n("common.download")),
                         ),
                         fileInput,
                         t.p(
@@ -348,7 +348,10 @@ export function pageImportCollections(route) {
                         { className: "col-lg-12" },
                         t.div(
                             { className: "field" },
-                            t.label({ htmlFor: uniqueId + "_collections_field" }, "Collections"),
+                            t.label(
+                                { htmlFor: uniqueId + "_collections_field" },
+                                () => i18n("common.selectCollection"),
+                            ),
                             t.textarea({
                                 id: uniqueId + "_collections_field",
                                 name: "collections",
@@ -367,7 +370,7 @@ export function pageImportCollections(route) {
                                 className: () =>
                                     `field-help error ${!!data.rawNewCollections && !data.isRawValid ? "" : "hidden"}`,
                             },
-                            "Invalid collections configuration.",
+                            () => i18n("common.error"),
                         ),
                     ),
                     t.div(
@@ -381,7 +384,7 @@ export function pageImportCollections(route) {
                                 checked: () => data.mergeWithOldCollections,
                                 onchange: (e) => (data.mergeWithOldCollections = e.target.checked),
                             }),
-                            t.label({ htmlFor: uniqueId + "_merge_checkbox" }, "Merge with the existing collections"),
+                            t.label({ htmlFor: uniqueId + "_merge_checkbox" }, () => i18n("common.duplicate")),
                         ),
                     ),
                     t.div(
@@ -392,7 +395,7 @@ export function pageImportCollections(route) {
                             { className: "alert info" },
                             t.div(
                                 { className: "content" },
-                                t.p(null, "Your collections configuration is already up-to-date!"),
+                                t.p(null, () => i18n("common.success")),
                             ),
                         ),
                     ),
@@ -400,7 +403,7 @@ export function pageImportCollections(route) {
                         {
                             className: () => `col-lg-12 ${data.isRawValid && data.hasChanges ? "" : "hidden"}`,
                         },
-                        t.p({ className: "txt-hint txt-bold" }, "Detected changes"),
+                        t.p({ className: "txt-hint txt-bold" }, () => i18n("common.showDetails")),
                         t.div(
                             { className: "list" },
                             // to delete
@@ -516,7 +519,7 @@ export function pageImportCollections(route) {
                                     className: () => `btn secondary ${!data.rawNewCollections ? "hidden" : ""}`,
                                     onclick: clear,
                                 },
-                                t.span({ className: "txt" }, "Clear"),
+                                t.span({ className: "txt" }, () => i18n("common.clear")),
                             ),
                             t.button(
                                 {
@@ -525,7 +528,7 @@ export function pageImportCollections(route) {
                                     disabled: () => !data.canReview,
                                     onclick: review,
                                 },
-                                t.span({ className: "txt" }, "Review"),
+                                t.span({ className: "txt" }, () => i18n("common.preview")),
                             ),
                         ),
                     ),

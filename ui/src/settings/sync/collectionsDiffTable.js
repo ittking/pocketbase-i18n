@@ -147,9 +147,9 @@ export function collectionsDiffTable(propsArg = {}) {
                 null,
                 t.tr(
                     null,
-                    t.th({ className: "min-width" }, "Props"),
-                    t.th({ width: "40%" }, "Old"),
-                    t.th({ width: "40%" }, "New"),
+                    t.th({ className: "min-width" }, () => i18n("common.rule")),
+                    t.th({ width: "40%" }, () => i18n("common.originalSize")),
+                    t.th({ width: "40%" }, () => i18n("common.copy")),
                 ),
             ),
             t.tbody(
@@ -204,10 +204,10 @@ export function collectionsDiffTable(propsArg = {}) {
                                 null,
                                 t.th(
                                     { className: "min-width", colSpan: 3 },
-                                    t.span({ className: "txt" }, "field: ", field.name),
+                                    t.span({ className: "txt" }, () => i18n("common.rule") + ": ", field.name),
                                     t.span(
                                         { className: "label danger m-l-5" },
-                                        "Deleted - ",
+                                        () => i18n("common.delete") + " - ",
                                         t.small(null, `All stored data related to '${field.name}' will be deleted!`),
                                     ),
                                 ),
@@ -247,10 +247,10 @@ export function collectionsDiffTable(propsArg = {}) {
                                 null,
                                 t.th(
                                     { className: "min-width", colSpan: 3 },
-                                    t.span({ className: "txt" }, "field: ", field.name),
+                                    t.span({ className: "txt" }, () => i18n("common.rule") + ": ", field.name),
                                     t.span({
                                         className: `label warning m-l-5 ${!hasFieldChanged ? "hidden" : ""}`,
-                                        textContent: "Changed",
+                                        textContent: () => i18n("common.edit"),
                                     }),
                                 ),
                             ),
@@ -289,8 +289,8 @@ export function collectionsDiffTable(propsArg = {}) {
                                 null,
                                 t.th(
                                     { className: "min-width", colSpan: 3 },
-                                    t.span({ className: "txt" }, "field: ", field.name),
-                                    t.span({ className: "label success m-l-5" }, "Added"),
+                                    t.span({ className: "txt" }, () => i18n("common.rule") + ": ", field.name),
+                                    t.span({ className: "label success m-l-5" }, () => i18n("common.create")),
                                 ),
                             ),
                         );

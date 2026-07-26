@@ -126,8 +126,8 @@ export function logsChart(logsSettings) {
                     logsSettings.zoom = {};
                 },
             },
-            t.div({ className: "content-primary" }, "Reset zoom"),
-            t.div({ className: "content-secondary" }, "(drag the timeline to pan)"),
+            t.div({ className: "content-primary" }, () => i18n("logs.resetZoom")),
+            t.div({ className: "content-secondary" }, () => i18n("logs.resetZoomHint")),
         ),
         t.span({
             hidden: () => !logsSettings.isChartLoading,
@@ -426,7 +426,7 @@ function tooltipsPlugin(logsSettings) {
                     },
                     t.div(
                         { className: "content-primary" },
-                        () => `${tooltip.total} ${tooltip.total == 1 ? "request" : "requests"}`,
+                        () => `${tooltip.total} ${tooltip.total == 1 ? i18n("logs.request") : i18n("logs.requests")}`,
                     ),
                     t.div({ className: "content-secondary" }, () => tooltip.date),
                 );

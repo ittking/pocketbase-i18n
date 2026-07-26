@@ -165,7 +165,7 @@ function indexUpsertModal(collection, index = "", settings = {}) {
             { className: "modal-header" },
             t.h6(
                 { className: "modal-title" },
-                t.span({ className: "txt" }, () => (data.isNew ? "Create index" : "Update index")),
+                t.span({ className: "txt" }, () => (data.isNew ? i18n("records.create") : i18n("records.saveChanges"))),
             ),
         ),
         t.div(
@@ -240,7 +240,7 @@ function indexUpsertModal(collection, index = "", settings = {}) {
                     className: "btn transparent m-r-auto",
                     onclick: () => app.modals.close(modal),
                 },
-                t.span({ className: "txt" }, "Close"),
+                t.span({ className: "txt" }, i18n("common.close")),
             ),
             t.button(
                 {

@@ -30,7 +30,7 @@ export function tokenOptionsAccordion(collection) {
         t.summary(
             null,
             t.i({ className: "ri-key-2-line", ariaHidden: true }),
-            t.span({ className: "txt", textContent: "Token options (invalidate, duration)" }),
+            t.span({ className: "txt", textContent: () => i18n("records.tokenOptions") }),
         ),
         t.div({ className: "grid sm" }, () => {
             return data.tokensList.map((token) => {
@@ -60,7 +60,7 @@ export function tokenOptionsAccordion(collection) {
                         t.button({
                             type: "button",
                             className: () => `link-hint ${collection[token.key].secret ? "txt-success" : ""}`,
-                            textContent: "Invalidate all previously issued tokens",
+                            textContent: () => i18n("records.invalidateAllTokens"),
                             onclick: () => {
                                 // toggle
                                 if (collection[token.key].secret) {

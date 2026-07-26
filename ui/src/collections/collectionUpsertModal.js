@@ -444,7 +444,7 @@ function collectionUpsertModal(rawCollection, modalSettings) {
                                         },
                                     },
                                     t.i({ className: "ri-braces-line", ariaHidden: true }),
-                                    t.span({ className: "txt" }, "Copy JSON"),
+                                    t.span({ className: "txt" }, i18n("common.copy")),
                                 ),
                                 t.button(
                                     {
@@ -466,7 +466,7 @@ function collectionUpsertModal(rawCollection, modalSettings) {
                                         },
                                     },
                                     t.i({ className: "ri-file-copy-line", ariaHidden: true }),
-                                    t.span({ className: "txt" }, "Duplicate"),
+                                    t.span({ className: "txt" }, i18n("common.duplicate")),
                                 ),
                                 t.hr(),
                                 () => {
@@ -650,7 +650,7 @@ function collectionUpsertModal(rawCollection, modalSettings) {
                     disabled: () => data.isSaving,
                     onclick: () => app.modals.close(modal),
                 },
-                t.span({ className: "txt" }, "Close"),
+                t.span({ className: "txt" }, i18n("common.close")),
             ),
             () => {
                 const rawErrors = JSON.stringify(app.store.errors, null, 2);
@@ -672,7 +672,10 @@ function collectionUpsertModal(rawCollection, modalSettings) {
                         disabled: () => !data.canSave,
                         onclick: () => confirmSave(true),
                     },
-                    t.span({ className: "txt" }, () => (data.isNew ? "Create" : "Save changes")),
+                    t.span(
+                        { className: "txt" },
+                        () => (data.isNew ? i18n("records.create") : i18n("records.saveChanges")),
+                    ),
                 ),
                 t.button(
                     {
@@ -695,7 +698,7 @@ function collectionUpsertModal(rawCollection, modalSettings) {
                                 confirmSave(false);
                             },
                         },
-                        t.span({ className: "txt" }, "Save and continue"),
+                        t.span({ className: "txt" }, i18n("records.saveAndContinue")),
                         t.small({ className: "txt-hint" }, "(Ctrl+S)"),
                     ),
                     t.hr(),
@@ -708,7 +711,7 @@ function collectionUpsertModal(rawCollection, modalSettings) {
                                 resetForm();
                             },
                         },
-                        t.span({ className: "txt" }, "Reset form"),
+                        t.span({ className: "txt" }, i18n("records.reset")),
                     ),
                 ),
             ),
@@ -879,7 +882,7 @@ function truncateDropdownItem(data, modalSettings) {
             },
         },
         t.i({ className: "ri-eraser-line", ariaHidden: true }),
-        t.span({ className: "txt" }, "Truncate"),
+        t.span({ className: "txt" }, i18n("common.delete")),
     );
 }
 
@@ -985,6 +988,6 @@ function deleteDropdownItem(data, modalSettings) {
             },
         },
         t.i({ className: "ri-delete-bin-7-line", ariaHidden: true }),
-        t.span({ className: "txt" }, "Delete"),
+        t.span({ className: "txt" }, i18n("common.delete")),
     );
 }

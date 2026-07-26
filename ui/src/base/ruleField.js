@@ -105,7 +105,7 @@ window.app.components.ruleField = function(propsArg = {}) {
             { htmlFor: uniqueId },
             (el) => {
                 if (!props.label) {
-                    return t.span({ className: "txt" }, "Rule");
+                    return t.span({ className: "txt" }, () => i18n("common.rule"));
                 }
 
                 if (typeof props.label == "function") {

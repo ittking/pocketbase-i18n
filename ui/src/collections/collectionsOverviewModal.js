@@ -20,8 +20,8 @@ function collectionsOverviewModal(settings = {}) {
     const uniqueId = "overview_modal_" + app.utils.randomString();
 
     const tabs = {
-        "Fields and relations": erd,
-        "Rules": rules,
+        fieldsAndRelations: { label: () => i18n("records.fieldsAndRelations"), panel: erd },
+        rules: { label: () => i18n("records.rules"), panel: rules },
     };
 
     const data = store({
@@ -79,7 +79,7 @@ function collectionsOverviewModal(settings = {}) {
                             {
                                 type: "button",
                                 className: "btn sm secondary transparent circle modal-close-btn",
-                                title: "Close",
+                                title: () => i18n("common.close"),
                                 onclick: () => app.modals.close(modal),
                             },
                             t.i({ className: "ri-close-line", ariaHidden: true }),
@@ -93,12 +93,12 @@ function collectionsOverviewModal(settings = {}) {
                         () => {
                             const items = [];
 
-                            for (let title in tabs) {
+                            for (let key in tabs) {
                                 items.push(t.button({
                                     type: "button",
-                                    className: () => `tab-item ${data.activeTab == title ? "active" : ""}`,
-                                    onclick: () => data.activeTab = title,
-                                    textContent: title,
+                                    className: () => `tab-item ${data.activeTab == key ? "active" : ""}`,
+                                    onclick: () => data.activeTab = key,
+                                    textContent: tabs[key].label,
                                 }));
                             }
 
@@ -109,7 +109,7 @@ function collectionsOverviewModal(settings = {}) {
             ),
         ),
         () => {
-            return tabs[data.activeTab]?.(data);
+            return tabs[data.activeTab]?.panel(data);
         },
     );
 
@@ -150,17 +150,17 @@ function erd(data) {
 
 function rules(data) {
     const ruleOptions = [
-        { value: "listRule", label: "List/Search rule" },
-        { value: "viewRule", label: "View rule" },
-        { value: "createRule", label: "Create rule", filter: (c) => c.type != "view" },
-        { value: "updateRule", label: "Update rule", filter: (c) => c.type != "view" },
-        { value: "deleteRule", label: "Delete rule", filter: (c) => c.type != "view" },
-        { value: "authRule", label: "Auth rule", filter: (c) => c.type == "auth" },
-        { value: "manageRule", label: "Manage rule", filter: (c) => c.type == "auth" },
+        { value: "listRule", label: () => i18n("records.listSearchRule") },
+        { value: "viewRule", label: () => i18n("records.viewRule") },
+        { value: "createRule", label: () => i18n("records.createRule"), filter: (c) => c.type != "view" },
+        { value: "updateRule", label: () => i18n("records.updateRule"), filter: (c) => c.type != "view" },
+        { value: "deleteRule", label: () => i18n("records.deleteRule"), filter: (c) => c.type != "view" },
+        { value: "authRule", label: () => i18n("records.authRule"), filter: (c) => c.type == "auth" },
+        { value: "manageRule", label: () => i18n("records.manageRule"), filter: (c) => c.type == "auth" },
         {
             value: "mfaRule",
-            label: "MFA rule",
-            emptyLabel: t.span({ className: "label info" }, "Enabled for everyone"),
+            label: () => i18n("records.mfaRule"),
+            emptyLabel: t.span({ className: "label info" }, () => i18n("records.no")),
             rule: (c) => c.mfa?.rule,
             filter: (c) => c.mfa?.enabled && c.type == "auth",
         },
@@ -216,7 +216,7 @@ function rules(data) {
                             null,
                             t.td(
                                 { colSpan: 99, className: "txt-hint" },
-                                t.p(null, "No collections with the selected rule."),
+                                t.p(null, () => i18n("records.noCollectionsWithRule")),
                             ),
                         );
                     }

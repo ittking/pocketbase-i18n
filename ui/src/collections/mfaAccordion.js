@@ -27,10 +27,10 @@ export function mfaAccordion(collection) {
         t.summary(
             null,
             t.i({ className: "ri-shield-check-line", ariaHidden: true }),
-            t.span({ className: "txt", textContent: "Multi-factor authentication (MFA)" }),
+            t.span({ className: "txt", textContent: () => i18n("records.multiFactorAuth") }),
             t.span({
                 className: () => `label m-l-auto ${data.config.enabled ? "success" : ""}`,
-                textContent: () => (data.config.enabled ? "Enabled" : "Disabled"),
+                textContent: () => (data.config.enabled ? i18n("records.enabled") : i18n("records.disabled")),
             }),
             () => {
                 if (!app.store.errors?.mfa) {
@@ -85,7 +85,7 @@ export function mfaAccordion(collection) {
                     }),
                     t.label({
                         htmlFor: uniqueId + ".enabled",
-                        textContent: "Enable",
+                        textContent: () => i18n("records.enabled"),
                     }),
                 ),
             ),
@@ -95,7 +95,7 @@ export function mfaAccordion(collection) {
                     { className: "field" },
                     t.label({
                         htmlFor: uniqueId + ".duration",
-                        textContent: "Max duration between 2 authentications (in seconds)",
+                        textContent: () => i18n("records.durationSeconds"),
                     }),
                     t.input({
                         type: "number",

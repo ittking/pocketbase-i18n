@@ -36,7 +36,9 @@ export function collectionRulesTab(upsertData) {
                     t.strong({
                         tabIndex: -1,
                         className: "m-l-auto link-hint",
-                        textContent: () => (local.showRulesInfo ? "Hide available fields" : "Show available fields"),
+                        textContent: () => (local.showRulesInfo
+                            ? i18n("records.hideAvailableFields")
+                            : i18n("records.showAvailableFields")),
                         onclick: () => (local.showRulesInfo = !local.showRulesInfo),
                     }),
                 ),
@@ -99,7 +101,7 @@ export function collectionRulesTab(upsertData) {
             t.div(
                 { className: "col-12", ariaDescription: systemRuleTooltip() },
                 app.components.ruleField({
-                    label: "List/Search rule",
+                    label: () => i18n("records.listSearchRule"),
                     name: "listRule",
                     autocomplete: autocomplete,
                     disabled: () => upsertData.originalCollection?.system,
@@ -110,7 +112,7 @@ export function collectionRulesTab(upsertData) {
             t.div(
                 { className: "col-12", ariaDescription: systemRuleTooltip() },
                 app.components.ruleField({
-                    label: "View rule",
+                    label: () => i18n("records.viewRule"),
                     name: "viewRule",
                     autocomplete: autocomplete,
                     disabled: () => upsertData.originalCollection?.system,
@@ -129,7 +131,7 @@ export function collectionRulesTab(upsertData) {
                         { className: "col-12", ariaDescription: systemRuleTooltip() },
                         app.components.ruleField({
                             label: [
-                                t.span({ className: "txt", textContent: "Create rule" }),
+                                t.span({ className: "txt", textContent: () => i18n("records.createRule") }),
                                 t.i({
                                     hidden: () => upsertData.collection.createRule == null,
                                     className: "ri-information-line link-hint",
@@ -149,7 +151,7 @@ export function collectionRulesTab(upsertData) {
                         { className: "col-12", ariaDescription: systemRuleTooltip() },
                         app.components.ruleField({
                             label: [
-                                t.span({ className: "txt", textContent: "Update rule" }),
+                                t.span({ className: "txt", textContent: () => i18n("records.updateRule") }),
                                 t.i({
                                     hidden: () => upsertData.collection.updateRule == null,
                                     className: "ri-information-line link-hint",
@@ -168,7 +170,7 @@ export function collectionRulesTab(upsertData) {
                     t.div(
                         { className: "col-12", ariaDescription: systemRuleTooltip() },
                         app.components.ruleField({
-                            label: "Delete rule",
+                            label: () => i18n("records.deleteRule"),
                             name: "deleteRule",
                             autocomplete: autocomplete,
                             disabled: () => upsertData.originalCollection?.system,
@@ -199,7 +201,7 @@ export function collectionRulesTab(upsertData) {
                             local.showAuthRules = !local.showAuthRules;
                         },
                     },
-                    t.span({ className: "txt" }, "Additional auth collection rules"),
+                    t.span({ className: "txt" }, () => i18n("records.additionalAuthRules")),
                     t.i({
                         ariaHidden: true,
                         className: () => (local.showAuthRules ? "ri-arrow-drop-up-line" : "ri-arrow-drop-down-line"),
@@ -212,7 +214,7 @@ export function collectionRulesTab(upsertData) {
                         t.div(
                             { className: "col-12", ariaDescription: systemRuleTooltip() },
                             app.components.ruleField({
-                                label: "Authentication rule",
+                                label: () => i18n("records.authRule"),
                                 name: "authRule",
                                 placeholder: "",
                                 autocomplete: autocomplete,
@@ -244,7 +246,7 @@ export function collectionRulesTab(upsertData) {
                         t.div(
                             { className: "col-12", ariaDescription: systemRuleTooltip() },
                             app.components.ruleField({
-                                label: "Manage rule",
+                                label: () => i18n("records.manageRule"),
                                 name: "manageRule",
                                 autocomplete: autocomplete,
                                 disabled: () => upsertData.originalCollection?.system,

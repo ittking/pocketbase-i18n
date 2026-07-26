@@ -74,7 +74,7 @@ function logsSettingsModal(modalSettings) {
 
             init(settings);
 
-            app.toasts.success("Successfully saved logs settings.");
+            app.toasts.success(i18n("logs.logsSettings") + " " + i18n("common.copy"));
 
             data.isSaving = false;
 
@@ -106,7 +106,7 @@ function logsSettingsModal(modalSettings) {
                 el?.remove();
             },
         },
-        t.header({ className: "modal-header" }, t.h5({ className: "m-auto" }, "Logs settings")),
+        t.header({ className: "modal-header" }, t.h5({ className: "m-auto" }, () => i18n("logs.logsSettings"))),
         () => {
             if (data.isLoading) {
                 return t.div(
@@ -132,7 +132,7 @@ function logsSettingsModal(modalSettings) {
                             { className: "col-lg-12" },
                             t.field(
                                 { className: "field" },
-                                t.label({ htmlFor: "logs.maxDays" }, "Max days retention"),
+                                t.label({ htmlFor: "logs.maxDays" }, () => i18n("logs.maxDaysRetention")),
                                 t.input({
                                     type: "number",
                                     id: "logs.maxDays",
@@ -145,16 +145,14 @@ function logsSettingsModal(modalSettings) {
                             ),
                             t.div(
                                 { className: "field-help" },
-                                "Set to ",
-                                t.code(null, 0),
-                                " to disable logs persistence.",
+                                () => i18n("logs.maxDaysRetentionHint"),
                             ),
                         ),
                         t.div(
                             { className: "col-lg-12" },
                             t.field(
                                 { className: "field" },
-                                t.label({ htmlFor: "logs.minLevel" }, "Min log level"),
+                                t.label({ htmlFor: "logs.minLevel" }, () => i18n("logs.minLogLevel")),
                                 t.input({
                                     type: "number",
                                     id: "logs.minLevel",
@@ -168,7 +166,7 @@ function logsSettingsModal(modalSettings) {
                             ),
                             t.div(
                                 { className: "field-help" },
-                                t.div(null, "Logs with level below the minimum will be ignored."),
+                                t.div(null, () => i18n("logs.minLogLevelHint")),
                                 defaultLogLevels(),
                             ),
                         ),
@@ -184,7 +182,7 @@ function logsSettingsModal(modalSettings) {
                                     checked: () => data.formSettings.logs.logIP,
                                     onchange: (e) => (data.formSettings.logs.logIP = e.target.checked),
                                 }),
-                                t.label({ htmlFor: "logs.logIP" }, "Enable IP logging"),
+                                t.label({ htmlFor: "logs.logIP" }, () => i18n("logs.enableIpLogging")),
                             ),
                         ),
                         t.div(
@@ -199,7 +197,7 @@ function logsSettingsModal(modalSettings) {
                                     checked: () => data.formSettings.logs.logAuthId,
                                     onchange: (e) => (data.formSettings.logs.logAuthId = e.target.checked),
                                 }),
-                                t.label({ htmlFor: "logs.logAuthId" }, "Enable Auth Id logging"),
+                                t.label({ htmlFor: "logs.logAuthId" }, () => i18n("logs.enableAuthIdLogging")),
                             ),
                         ),
                     ),
@@ -213,7 +211,7 @@ function logsSettingsModal(modalSettings) {
                             onclick: () => app.modals.close(modal),
                             disabled: () => data.isSaving,
                         },
-                        t.span({ className: "txt" }, "Close"),
+                        t.span({ className: "txt" }, () => i18n("common.close")),
                     ),
                     t.button(
                         {
@@ -222,7 +220,7 @@ function logsSettingsModal(modalSettings) {
                             className: () => `btn ${data.isSaving ? "loading" : ""}`,
                             disabled: () => !data.hasChanges || data.isSaving,
                         },
-                        t.span({ className: "txt" }, "Save changes"),
+                        t.span({ className: "txt" }, () => i18n("common.copy")),
                     ),
                 ),
             ];
