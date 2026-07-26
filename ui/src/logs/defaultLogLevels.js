@@ -1,7 +1,7 @@
 export function defaultLogLevels() {
     return t.div(
         { className: "inline-flex gap-5" },
-        t.span(null, "Default log levels:"),
+        t.span(null, () => i18n("logsPage.defaultLogLevels")),
         () => {
             const result = [];
             for (const level in app.utils.logLevels) {

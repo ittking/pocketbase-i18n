@@ -509,6 +509,8 @@ window.app.i18nLocales.zh = {
     },
     // === common ===
     common: {
+        json: "JSON",
+        close: "关闭",
         create: "创建",
         cancel: "取消",
         enabled: "已启用",
@@ -555,5 +557,13 @@ window.app.i18nLocales.zh = {
         noRecordsSelectable: "未找到可选择文件的记录。",
         setSelection: "设置选择",
         noSelectedRecords: "未选择记录。",
+    },
+    // === logs page (not modal) ===
+    logsPage: {
+        logsSettingsAriaLabel: "日志设置",
+        searchTermOrFilter: "搜索关键词或筛选条件，如 `level > 0`",
+        includeRequestsBySuperusers: "包含超级用户的请求",
+        total: "总计：",
+        defaultLogLevels: "默认日志级别：",
     },
 };

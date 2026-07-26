@@ -453,6 +453,7 @@ window.app.i18nLocales.en = {
         reset: "Reset",
         json: "JSON",
         total: "Total:",
+        close: "Close",
         includeRequestsBySuperusers: "Include requests by superusers",
         logDetails: "Log details",
         moreOptions: "More options",
@@ -564,5 +565,13 @@ window.app.i18nLocales.en = {
         noRecordsSelectable: "No records with selectable files found.",
         setSelection: "Set selection",
         noSelectedRecords: "No selected records.",
+    },
+    // === logs page (not modal) ===
+    logsPage: {
+        logsSettingsAriaLabel: "Logs settings",
+        searchTermOrFilter: "Search term or filter like `level > 0`",
+        includeRequestsBySuperusers: "Include requests by superusers",
+        total: "Total:",
+        defaultLogLevels: "Default log levels:",
     },
 };
