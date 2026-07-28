@@ -86,7 +86,7 @@ function collectionUpsertModal(rawCollection, modalSettings) {
             return Object.keys(app.collectionTypes).map((type) => {
                 return {
                     value: type,
-                    label: app.utils.sentenize(type, false) + " collection",
+                    label: app.utils.sentenize(type, false) + " " + i18n("collections.collection"),
                 };
             });
         },
@@ -306,7 +306,7 @@ function collectionUpsertModal(rawCollection, modalSettings) {
 
                 return new Promise((r) => {
                     app.modals.confirm(
-                        "You have unsaved changes. Do you really want to discard them?",
+                        i18n("collections.unsavedChanges"),
                         () => r(modalSettings.onbeforeclose?.(el)),
                         () => r(false),
                     );
@@ -399,7 +399,12 @@ function collectionUpsertModal(rawCollection, modalSettings) {
                     { className: "col-12 flex" },
                     t.h6(
                         { className: "modal-title" },
-                        t.span(null, () => (data.isNew ? "Create " : "Edit ")),
+                        t.span(
+                            null,
+                            () => (data.isNew
+                                ? i18n("collections.createCollection")
+                                : i18n("collections.editCollection")),
+                        ),
                         t.strong(
                             {
                                 hidden: () => data.isNew,
@@ -407,7 +412,7 @@ function collectionUpsertModal(rawCollection, modalSettings) {
                             },
                             () => data.originalCollection?.name,
                         ),
-                        t.span(null, " collection"),
+                        t.span(null, " " + i18n("collections.collection")),
                     ),
                     t.div({ className: "flex-fill" }),
                     () => {
@@ -420,7 +425,7 @@ function collectionUpsertModal(rawCollection, modalSettings) {
                                 {
                                     type: "button",
                                     className: "btn sm circle transparent",
-                                    title: "More options",
+                                    title: i18n("collections.moreOptions"),
                                     "html-popovertarget": uniqueId + "modal-header-dropdown",
                                 },
                                 t.i({ className: "ri-more-line", ariaHidden: true }),
@@ -455,10 +460,10 @@ function collectionUpsertModal(rawCollection, modalSettings) {
 
                                             if (data.hasChanges) {
                                                 app.modals.confirm(
-                                                    "You have unsaved changes. Do you really want to discard them?",
+                                                    i18n("collections.unsavedChanges"),
                                                     duplicate,
                                                     null,
-                                                    { yesButton: "Yes, discard" },
+                                                    { yesButton: i18n("collections.yesDiscard") },
                                                 );
                                             } else {
                                                 duplicate();
@@ -494,7 +499,10 @@ function collectionUpsertModal(rawCollection, modalSettings) {
                             t.label({
                                 htmlFor: uniqueId + "col_name",
                                 textContent: () => {
-                                    return `Name${data.collection?.system ? " (system)" : ""}`;
+                                    return (data.collection?.system
+                                        ? i18n("collections.collectionName") + " "
+                                            + i18n("collections.systemCollection")
+                                        : i18n("collections.collectionName"));
                                 },
                             }),
                             t.input({
@@ -503,7 +511,7 @@ function collectionUpsertModal(rawCollection, modalSettings) {
                                 name: "name",
                                 required: true,
                                 spellcheck: false,
-                                placeholder: "e.g. posts",
+                                placeholder: i18n("collections.namePlaceholder"),
                                 autofocus: () => data.isNew,
                                 disabled: () => !data.isNew && data.collection?.system,
                                 value: () => data.collection.name || "",
@@ -532,8 +540,10 @@ function collectionUpsertModal(rawCollection, modalSettings) {
                                 },
                                 t.span(
                                     { className: "txt" },
-                                    "Type: ",
-                                    () => app.utils.sentenize(data.collection.type, false) || "N/A",
+                                    i18n("collections.typeLabel"),
+                                    () =>
+                                        app.utils.sentenize(data.collection.type, false)
+                                        || i18n("common.notApplicable"),
                                 ),
                                 t.i({
                                     hidden: () => !data.isNew,
@@ -840,21 +850,21 @@ function truncateDropdownItem(data, modalSettings) {
                         null,
                         t.h6(
                             { className: "block txt-center" },
-                            "Do you really want to delete all records of the collection?",
+                            i18n("collections.deleteAllRecords"),
                         ),
                         t.div(
                             { className: "confirm-collection-label txt-bold m-t-sm m-b-sm" },
-                            "Type the collection name ",
+                            i18n("collections.typeCollectionName"),
                             t.div(
                                 { className: "label" },
                                 () => data.originalCollection.name,
                                 app.components.copyButton(() => data.originalCollection?.name),
                             ),
-                            " to confirm:",
+                            " " + i18n("collections.toConfirm"),
                         ),
                         t.div(
                             { className: "field" },
-                            t.label({ htmlFor: uniqueId + ".confirm_name" }, "Collection name"),
+                            t.label({ htmlFor: uniqueId + ".confirm_name" }, i18n("collections.collectionNameLabel")),
                             t.input({
                                 id: uniqueId + ".confirm_name",
                                 type: "text",
@@ -942,25 +952,25 @@ function deleteDropdownItem(data, modalSettings) {
                             { className: "block txt-center" },
                             () => {
                                 if (data.originalCollection.type == "view") {
-                                    return "Do you really want to delete the selected collection?";
+                                    return i18n("collections.deleteCollectionConfirm");
                                 }
 
-                                return "Do you really want to delete the selected collection and all its records";
+                                return i18n("collections.deleteCollectionAndRecords");
                             },
                         ),
                         t.div(
                             { className: "confirm-collection-label txt-bold m-t-sm m-b-sm" },
-                            "Type the collection name ",
+                            i18n("collections.typeCollectionName"),
                             t.div(
                                 { className: "label" },
                                 () => data.originalCollection.name,
                                 app.components.copyButton(() => data.originalCollection?.name),
                             ),
-                            " to confirm:",
+                            " " + i18n("collections.toConfirm"),
                         ),
                         t.div(
                             { className: "field" },
-                            t.label({ htmlFor: uniqueId + ".confirm_name" }, "Collection name"),
+                            t.label({ htmlFor: uniqueId + ".confirm_name" }, i18n("collections.collectionNameLabel")),
                             t.input({
                                 id: uniqueId + ".confirm_name",
                                 type: "text",

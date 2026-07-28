@@ -35,7 +35,8 @@ export function collectionFieldsTab(upsertData) {
         t.hr(),
         t.p(
             { className: "txt-bold" },
-            "Unique constraints and indexes (",
+            i18n("collections.uniqueConstraints"),
+            " (",
             () => upsertData.collection.indexes?.length,
             ")",
         ),
@@ -60,7 +61,7 @@ export function collectionFieldsTab(upsertData) {
                     },
                     () => {
                         if (parsed.unique) {
-                            return t.strong(null, "Unique:");
+                            return t.strong(null, i18n("collections.unique") + ":");
                         }
                     },
                     t.span({ className: "txt" }, () => parsed.columns?.map((c) => c.name).join(", ")),
