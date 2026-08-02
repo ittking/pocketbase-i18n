@@ -74,7 +74,7 @@ function appleSecretGeneratorModal(modalSettings = {}) {
 
             data.isSubmitting = false;
 
-            app.toasts.success("Successfully generated client secret.");
+            app.toasts.success(i18n("records.successfullyGeneratedClientSecret"));
 
             modalSettings.ongenerate?.(result.secret);
 
@@ -218,7 +218,7 @@ function appleSecretGeneratorModal(modalSettings = {}) {
                     className: "btn transparent m-r-auto",
                     onclick: () => app.modals.close(modal),
                 },
-                t.span({ className: "txt" }, "Close"),
+                t.span({ className: "txt" }, () => i18n("common.close")),
             ),
             t.button(
                 {

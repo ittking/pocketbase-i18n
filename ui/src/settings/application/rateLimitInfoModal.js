@@ -145,7 +145,7 @@ function rateLimitInfoModal() {
                     className: "btn transparent m-r-auto",
                     onclick: () => app.modals.close(),
                 },
-                t.span({ className: "txt" }, "Close"),
+                t.span({ className: "txt" }, () => i18n("common.close")),
             ),
         ),
     );

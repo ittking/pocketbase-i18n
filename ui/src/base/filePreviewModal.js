@@ -112,7 +112,7 @@ function filePreviewModal(urlOrFactory) {
                     className: "btn transparent m-l-auto",
                     onclick: () => app.modals.close(),
                 },
-                t.span({ className: "txt" }, "Close"),
+                t.span({ className: "txt" }, () => i18n("common.close")),
             ),
         ),
     );

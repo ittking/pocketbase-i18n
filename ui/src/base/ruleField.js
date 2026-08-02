@@ -35,7 +35,7 @@ window.app.components.ruleField = function(propsArg = {}) {
         help: undefined,
         value: null,
         nullable: true,
-        placeholder: "Leave empty to grant everyone access...",
+        placeholder: () => i18n("common.leaveEmptyToGrantAccess"),
         autocomplete: (word) => [],
         oninput: (newVal) => {},
         onmount: (el) => {},
@@ -118,7 +118,10 @@ window.app.components.ruleField = function(propsArg = {}) {
 
                 return props.label;
             },
-            t.span({ hidden: () => !props.isLocked, className: "txt superusers-label" }, "(Superusers only)"),
+            t.span(
+                { hidden: () => !props.isLocked, className: "txt superusers-label" },
+                () => i18n("common.superusersOnly"),
+            ),
         ),
         (el) => {
             if (props.isLocked) {
@@ -129,7 +132,7 @@ window.app.components.ruleField = function(propsArg = {}) {
                         disabled: () => props.disabled,
                         onclick: unlock,
                     },
-                    t.span({ className: "txt" }, "Unlock and set custom rule"),
+                    t.span({ className: "txt" }, () => i18n("common.unlockAndSetCustomRule")),
                     t.i({ className: "ri-lock-unlock-line", ariaHidden: true }),
                 );
             }
@@ -155,7 +158,7 @@ window.app.components.ruleField = function(propsArg = {}) {
                         onclick: lock,
                     },
                     t.i({ className: "ri-lock-line", ariaHidden: true }),
-                    t.span({ className: "txt" }, "Set superusers only"),
+                    t.span({ className: "txt" }, () => i18n("common.setSuperusersOnly")),
                 ),
             ];
         },

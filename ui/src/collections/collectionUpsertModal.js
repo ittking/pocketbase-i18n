@@ -33,23 +33,23 @@ window.app.collectionTypes = {
     "base": {
         "icon": "ri-folder-2-line",
         "tabs": {
-            "Fields": collectionFieldsTab,
-            "API rules": collectionRulesTab,
+            "Fields": { label: () => i18n("collections.fields"), component: collectionFieldsTab },
+            "API rules": { label: () => i18n("collections.apiRules"), component: collectionRulesTab },
         },
     },
     "view": {
         "icon": "ri-table-line",
         "tabs": {
-            "Query": collectionViewQueryTab,
-            "API rules": collectionRulesTab,
+            "Query": { label: () => i18n("collections.query"), component: collectionViewQueryTab },
+            "API rules": { label: () => i18n("collections.apiRules"), component: collectionRulesTab },
         },
     },
     "auth": {
         "icon": "ri-group-line",
         "tabs": {
-            "Fields": collectionFieldsTab,
-            "API rules": collectionRulesTab,
-            "Options": collectionAuthOptionsTab,
+            "Fields": { label: () => i18n("collections.fields"), component: collectionFieldsTab },
+            "API rules": { label: () => i18n("collections.apiRules"), component: collectionRulesTab },
+            "Options": { label: () => i18n("collections.options"), component: collectionAuthOptionsTab },
         },
     },
 };
@@ -196,8 +196,8 @@ function collectionUpsertModal(rawCollection, modalSettings) {
 
             app.toasts.success(
                 isNew
-                    ? `Successfully created collection "${data.collection.name}".`
-                    : `Successfully updated collection "${data.collection.name}".`,
+                    ? i18n("records.successfullyCreatedCollection").replace("{name}", data.collection.name)
+                    : i18n("records.successfullyUpdatedCollection").replace("{name}", data.collection.name),
                 { key: "collectionSave" },
             );
 
@@ -211,7 +211,7 @@ function collectionUpsertModal(rawCollection, modalSettings) {
             if (!err?.isAbort) {
                 data.isSaving = false;
                 app.checkApiError(err, false);
-                app.toasts.error(err.message || "Failed to save collection.", { key: "collectionSave" });
+                app.toasts.error(err.message || i18n("records.failedToSaveCollection"), { key: "collectionSave" });
             }
         }
     }
@@ -445,7 +445,7 @@ function collectionUpsertModal(rawCollection, modalSettings) {
                                             app.utils.copyToClipboard(
                                                 JSON.stringify(data.originalCollection, null, 2),
                                             );
-                                            app.toasts.success("Collection copied to clipboard!");
+                                            app.toasts.success(i18n("records.collectionCopiedToClipboard"));
                                         },
                                     },
                                     t.i({ className: "ri-braces-line", ariaHidden: true }),
@@ -608,7 +608,7 @@ function collectionUpsertModal(rawCollection, modalSettings) {
                                             className: () => `tab-item ${data.activeTab == tabName ? "active" : ""}`,
                                             onclick: () => changeTab(tabName),
                                         },
-                                        t.span({ className: "txt" }, tabName),
+                                        t.span({ className: "txt" }, tabs[tabName].label),
                                         () => {
                                             if (!data.errorTabs[tabName]) {
                                                 return;
@@ -616,7 +616,7 @@ function collectionUpsertModal(rawCollection, modalSettings) {
 
                                             return t.i({
                                                 className: "ri-error-warning-fill txt-danger txt-base",
-                                                ariaDescription: app.attrs.tooltip("Has errors"),
+                                                ariaDescription: app.attrs.tooltip(() => i18n("records.hasErrors")),
                                             });
                                         },
                                     ),
@@ -643,7 +643,7 @@ function collectionUpsertModal(rawCollection, modalSettings) {
                                 hidden: () => data.activeTab != tabName,
                                 className: "tab-content-wrapper block",
                             },
-                            () => app.collectionTypes[data.collection.type]?.tabs?.[tabName]?.(data),
+                            () => app.collectionTypes[data.collection.type]?.tabs?.[tabName]?.component?.(data),
                         ),
                     );
                 }
@@ -690,7 +690,7 @@ function collectionUpsertModal(rawCollection, modalSettings) {
                 t.button(
                     {
                         type: "button",
-                        title: "Save options",
+                        title: () => i18n("records.saveOptions"),
                         className: () => `btn p-5`,
                         disabled: () => !data.canSave,
                         "html-popovertarget": uniqueId + "save_options",
@@ -825,7 +825,9 @@ function truncateDropdownItem(data, modalSettings) {
 
             modalSettings.ontruncate?.(JSON.parse(JSON.stringify(data.originalCollection)));
 
-            app.toasts.success(`Successfully truncated collection "${data.originalCollection.name}".`);
+            app.toasts.success(
+                i18n("records.successfullyTruncatedCollection").replace("{name}", data.originalCollection.name),
+            );
 
             local.isSubmitting = false;
 
@@ -922,7 +924,9 @@ function deleteDropdownItem(data, modalSettings) {
 
             app.utils.removeByKey(app.store.collections, "id", data.originalCollection.id);
 
-            app.toasts.success(`Successfully deleted collection "${data.originalCollection.name}".`);
+            app.toasts.success(
+                i18n("records.successfullyDeletedCollection").replace("{name}", data.originalCollection.name),
+            );
 
             local.isSubmitting = false;
 

@@ -55,13 +55,13 @@ function copyJSON(record) {
 
 function recordPreviewModal(rawRecord, modalSettings) {
     if (!rawRecord?.id) {
-        app.toasts.error("Failed to load record.");
+        app.toasts.error(i18n("records.failedToLoadRecord"));
         console.warn("[recordPreviewModal] missing required record id field:", rawRecord);
         return;
     }
 
     if (!rawRecord.collectionId && !rawRecord.collectionName) {
-        app.toasts.error("Failed to load record.");
+        app.toasts.error(i18n("records.failedToLoadRecord"));
         console.warn("[recordPreviewModal] missing required collectionId or collectionName field:", rawRecord);
         return;
     }

@@ -107,11 +107,11 @@ function providerPickerModal(settings = {}) {
 
                     return t.div(
                         { rid: "notfound", className: "block txt-center txt-hint" },
-                        t.p(null, "No providers found."),
+                        t.p(null, () => i18n("common.noItemsFound")),
                         t.button({
                             type: "button",
                             className: "btn sm secondary",
-                            textContent: "Clear search",
+                            textContent: () => i18n("common.clearSearch"),
                             onclick: () => clearSearch(),
                         }),
                     );
